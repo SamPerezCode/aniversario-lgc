@@ -247,7 +247,7 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
                     {enviando ? "Enviando..." : "Realizar inscripción"}
                 </button>
                 <button type="button" className="btn-volver" onClick={onVolver}>
-                    Volver
+                    Cancelar
                 </button>
             </form>
         </>

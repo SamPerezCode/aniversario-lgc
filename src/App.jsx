@@ -1,6 +1,9 @@
 import { useState } from "react";
-import InscripcionPublica from "./components/inscripciones/FormularioInscripcion";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SplashScreen from "./components/ui/SplashScreen";
+import FormularioInscripcion from "./components/inscripciones/FormularioInscripcion";
+import Login from "./pages/Login";
+import AdminDashboard from "./pages/AdminDashboard";
 import './styles/global.css';
 
 function App() {
@@ -10,12 +13,19 @@ function App() {
     setShowSplash(false);
   };
 
+  if (showSplash) {
+    return <SplashScreen onFinish={handleSplashFinish} />;
+  }
+
   return (
-    <>
-      {showSplash
-        ? <SplashScreen onFinish={handleSplashFinish} />
-        : <InscripcionPublica />}
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<FormularioInscripcion />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="*" element={<h2>Página no encontrada</h2>} />
+      </Routes>
+    </Router>
   );
 }
 
