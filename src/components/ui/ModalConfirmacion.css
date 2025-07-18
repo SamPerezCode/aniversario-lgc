@@ -1,0 +1,74 @@
+.modal-confirmacion-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+
+.modal-confirmacion-contenido {
+    background-color: #fff;
+    color: var(--color-text);
+    font-family: var(--font-cuerpo);
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+[data-theme="dark"] .modal-confirmacion-contenido {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+}
+
+.modal-botones {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn-continuar {
+    background-color: var(--color-primary) !important;
+    /* Clayfire */
+    color: var(--color-bg) !important;
+    padding: 0.6rem 1.4rem;
+    font-family: var(--font-cuerpo);
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-continuar:hover {
+    /* background-color: var(--color-secondary) !important; */
+}
+
+
+.btn-cancelar {
+    background-color: var(--color-secondary) !important;
+    color: var(--color-bg) !important;
+    padding: 0.6rem 1.4rem;
+    font-family: var(--font-cuerpo);
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-cancelar:hover {
+    /* background-color: #6f7c74; */
+
+}

@@ -1,0 +1,33 @@
+:root {
+    /* Tipografía */
+    --font-titulos: 'Gyst', serif;
+    --font-subtitulos: 'Poltawski', serif;
+    --font-cuerpo: 'Urbanist', sans-serif;
+
+    /* Tema claro */
+    --color-bg: #fdfaed;
+    /* Manna Light */
+    --color-text: #1b3c2a;
+    /* Everdeep para contraste */
+    --color-primary: #c16c4f;
+    /* Clayfire */
+    --color-secondary: #81988d;
+    /* Olive Ashes */
+    --color-accent: #b3885f;
+    /* Desert Ember */
+    --bg-gradient-light: radial-gradient(circle, #fdfaf4 0%, #f3eedc 100%);
+}
+
+/* 🌙 Modo oscuro */
+[data-theme="dark"] {
+    --color-bg: #1b3c2a;
+    /* Everdeep */
+    --color-text: #fdfaed;
+    /* Manna Light */
+    --color-primary: #81988d;
+    /* Olive Ashes */
+    --color-secondary: #b3885f;
+    /* Desert Ember */
+    --color-accent: #c16c4f;
+    /* Clayfire */
+}

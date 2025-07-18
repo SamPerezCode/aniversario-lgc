@@ -1,0 +1,305 @@
+.formulario-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+    background: linear-gradient(135deg, #fff8e1, #f1e1b8);
+}
+
+.form-inscripcion {
+    /* background-color: var(--color-bg); */
+    border-radius: 16px;
+    padding: 40px 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    font-family: var(--font-cuerpo);
+}
+
+.logo-iglesia {
+    display: block;
+    margin: 0 auto 20px auto;
+    max-width: 140px;
+}
+
+.titulo {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    color: #333;
+    font-family: var(--font-titulos);
+    font-weight: bold;
+}
+
+form label {
+    display: block;
+    margin-bottom: 20px;
+    color: #444;
+    font-weight: 500;
+    font-family: var(--font-subtitulos);
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    font-family: var(--font-cuerpo);
+}
+
+form button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: #2b6cb0;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: var(--font-subtitulos);
+}
+
+form button:hover {
+    background-color: #225ea8;
+}
+
+.error {
+    color: #d9534f;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    display: block;
+    font-family: var(--font-cuerpo);
+}
+
+.modal-exito {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    font-family: var(--font-cuerpo);
+}
+
+.modal-contenido {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    font-family: var(--font-subtitulos);
+}
+
+.modal-contenido h2 {
+    margin-bottom: 1rem;
+    font-family: var(--font-titulos);
+    font-weight: bold;
+}
+
+.modal-contenido button {
+    background-color: #3e8ed0;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: var(--font-subtitulos);
+    font-weight: 500;
+}
+
+.modal-contenido button:hover {
+    background-color: #2f6cad;
+}
+
+/* Animación fade-in */
+.fade-in {
+    animation: fadeInForm 0.8s ease-in-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInForm {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ------------------------------------------- */
+.botones-evento {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.btn-evento {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border: none;
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-evento:hover {
+    background-color: var(--color-secondary);
+}
+
+.seleccion-titulo {
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: var(--color-secondary);
+
+}
+
+.modal-confirmacion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-contenido {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.modal-botones {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn-continuar,
+.btn-cancelar {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-continuar {
+    background-color: #cc6b5a;
+    color: white;
+}
+
+.btn-cancelar {
+    background-color: #e0e0e0;
+}
+
+.modal-confirmacion,
+.modal-exito {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Más translúcido */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    /* Sutil desenfoque */
+}
+
+.modal-contenido {
+    background-color: #ffffff;
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 480px;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Texto */
+.modal-contenido p {
+    font-size: 1.1rem;
+    color: #1d1d1d;
+    margin-bottom: 1.8rem;
+}
+
+/* Botones */
+.modal-botones {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-continuar,
+.btn-cancelar {
+    padding: 10px 20px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+.btn-continuar {
+    background-color: #2d89ef;
+    color: #fff;
+}
+
+.btn-continuar:hover {
+    background-color: #1b5dab;
+}
+
+.btn-cancelar {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.btn-cancelar:hover {
+    background-color: #c5c5c5;
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
