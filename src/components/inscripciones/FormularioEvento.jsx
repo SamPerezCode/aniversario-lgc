@@ -84,18 +84,15 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
 
     return (
         <>
-            <p
+            <div
                 className="mensaje-informativo"
                 onClick={() => showInfoModal(evento)}
             >
-                <p
-                    className="mensaje-informativo"
-                    onClick={() => showInfoModal(evento)}
-                >
-                    Por favor llena el formulario después de leer esta información <span className="clic-aqui">haz clic aquí</span>.
+                <p>
+                    Por favor llena el formulario después de leer esta información{' '}
+                    <span className="clic-aqui">haz clic aquí</span>.
                 </p>
-
-            </p>
+            </div>
 
             {/* ✅ Renderizar modal si infoModal está definido */}
             {infoModal && (
@@ -104,6 +101,7 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
                     onCerrar={hideInfoModal}
                 />
             )}
+
 
             <form onSubmit={handleSubmit} className="form-evento">
                 <label>

@@ -1,20 +1,21 @@
 @import './variables.css';
 @import '../assets/fonts/fonts.css';
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
     padding: 0;
     font-family: var(--font-cuerpo);
-
-    body {
-        background: linear-gradient(135deg, #fff8e1, #f1e1b8);
-    }
-
+    background: linear-gradient(135deg, #fff8e1, #f1e1b8);
     color: var(--color-text);
-    transition: background-color 0.3s ease,
-    color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 
 /* Título principal */
 h1 {
@@ -33,7 +34,7 @@ h3,
 }
 
 /* styles/global.css */
-.login-page,
+
 .admin-dashboard {
     padding: 2rem;
     text-align: center;

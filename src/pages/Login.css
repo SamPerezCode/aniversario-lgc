@@ -1,0 +1,108 @@
+/* CENTRADO TOTAL */
+.form-wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--color-bg-principal);
+}
+
+/* CONTENEDOR DEL LOGIN */
+.login-container {
+    width: 100%;
+    max-width: 500px;
+    /* Aumentamos el ancho */
+    background-color: var(--color-bg);
+    border-radius: 1rem;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    box-sizing: border-box;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    transition: max-width 0.3s ease;
+}
+
+/* LOGO */
+.login-logo {
+    width: 100px;
+    margin: 0 auto 1.5rem;
+    display: block;
+    transition: filter 0.3s ease;
+}
+
+[data-theme="dark"] .login-logo {
+    filter: brightness(1.2);
+}
+
+/* FORMULARIO */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 300px;
+}
+
+.form-group {
+    width: 100%;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.button-login {
+    padding: 0.7rem;
+    width: 100%;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-login:hover {
+    background-color: var(--color-secondary);
+}
+
+.error {
+    color: red;
+    font-size: 0.9rem;
+}
+
+.logo-container {
+    background-color: var(--color-bg);
+    border: 2px solid var(--color-secondary);
+    border-radius: 50%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 110px;
+    height: 110px;
+    overflow: hidden;
+    margin-bottom: 0.6rem;
+}
+
+.logo-circular {
+    width: 70px;
+    height: auto;
+}
