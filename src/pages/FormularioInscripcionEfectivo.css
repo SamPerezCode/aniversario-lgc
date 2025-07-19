@@ -1,0 +1,85 @@
+/* Este contenedor ocupa toda la pantalla y centra su contenido */
+.pagina-inscripcion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    background-color: var(--fondo);
+    /* o el color de fondo que uses */
+}
+
+/* Este contenedor limita el ancho y aplica estilos al formulario */
+.contenedor-inscripcion {
+    width: 100%;
+    max-width: 500px;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Limita el ancho del formulario */
+.formulario-inscripcion {
+    width: 100%;
+    max-width: 500px;
+    background-color: rgba(255, 255, 255, 0.6);
+    /* o tu color claro actual */
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.titulo-inscripcion-efectivo {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--texto-principal);
+}
+
+.formulario-inscripcion {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Botones */
+.btn-registrar,
+.btn-volver {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-registrar {
+    background-color: var(--verde);
+    /* color verde actual */
+    color: white;
+}
+
+.btn-volver {
+    background-color: var(--rojo-suave);
+    /* o gris suave si prefieres */
+    color: white;
+}
+
+/* Responsive y tamaños más pequeños en pantallas grandes */
+@media screen and (min-width: 768px) {
+    .contenedor-inscripcion {
+        max-width: 600px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .contenedor-inscripcion {
+        max-width: 500px;
+        padding: 2rem;
+    }
+
+    .titulo-inscripcion {
+        font-size: 1.75rem;
+    }
+}

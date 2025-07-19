@@ -1,12 +1,16 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useInscripciones } from '../../context/InscripcionesContext';
+import { useNavigate } from 'react-router-dom';
 import './TablaInscritos.css';
 
 const TablaInscripciones = () => {
     const [filtro, setFiltro] = useState("PreAprobado");
     const [busqueda, setBusqueda] = useState("");
     const [paginaActual, setPaginaActual] = useState(1);
+    const [mostrarEfectivo, setMostrarEfectivo] = useState(false);
     const registrosPorPagina = 10;
+
+    const navigate = useNavigate();
 
     const {
         inscripciones,
@@ -46,6 +50,9 @@ const TablaInscripciones = () => {
             );
     }, [inscripciones, filtro, busqueda]);
 
+    const inscripcionesEfectivo = useMemo(() => {
+        return inscripciones.filter((item) => item.metodo_pago === "Efectivo");
+    }, [inscripciones]);
 
     const totalPaginas = Math.ceil(inscripcionesFiltradas.length / registrosPorPagina);
 
@@ -63,6 +70,17 @@ const TablaInscripciones = () => {
     return (
         <div className="tabla-wrapper">
 
+            {/* Botones superiores */}
+            <div className="acciones-superiores">
+                <button onClick={() => setMostrarEfectivo(!mostrarEfectivo)}>
+                    {mostrarEfectivo ? 'Ocultar pagos en efectivo' : 'Ver pagos en efectivo'}
+                </button>
+                <button onClick={() => navigate('/formulario-pago-efectivo')}>
+                    Agregar pago en efectivo
+                </button>
+            </div>
+
+            {/* Filtros */}
             <div className="filtros-inscripciones">
                 <button
                     className={filtro === "PreAprobado" ? "activo" : ""}
@@ -84,7 +102,7 @@ const TablaInscripciones = () => {
                 </button>
             </div>
 
-
+            {/* Buscador */}
             <div className="buscador-inscripciones">
                 <input
                     type="text"
@@ -97,7 +115,7 @@ const TablaInscripciones = () => {
                 />
             </div>
 
-            {/* 📋 Tabla de inscripciones */}
+            {/* Tabla principal */}
             <table className="tabla-inscritos">
                 <thead>
                     <tr>
@@ -154,10 +172,9 @@ const TablaInscripciones = () => {
                         ))
                     )}
                 </tbody>
-
             </table>
 
-            {/* ⏩ Paginación */}
+            {/* Paginación */}
             {totalPaginas > 1 && (
                 <div className="paginacion">
                     <button onClick={() => cambiarPagina(paginaActual - 1)} disabled={paginaActual === 1}>
@@ -175,6 +192,43 @@ const TablaInscripciones = () => {
                     <button onClick={() => cambiarPagina(paginaActual + 1)} disabled={paginaActual === totalPaginas}>
                         &raquo;
                     </button>
+                </div>
+            )}
+
+            {/* Tabla de pagos en efectivo */}
+            {mostrarEfectivo && (
+                <div className="tabla-efectivo">
+                    <h3>Pagos en efectivo</h3>
+                    <table className="tabla-inscritos">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Documento</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {inscripcionesEfectivo.length === 0 ? (
+                                <tr>
+                                    <td colSpan="5" style={{ textAlign: 'center', fontStyle: 'italic' }}>
+                                        No hay pagos en efectivo registrados.
+                                    </td>
+                                </tr>
+                            ) : (
+                                inscripcionesEfectivo.map((item) => (
+                                    <tr key={item.id}>
+                                        <td>{item.nombre}</td>
+                                        <td>{item.documento}</td>
+                                        <td>{item.email || '—'}</td>
+                                        <td>{item.telefono || '—'}</td>
+                                        <td>{item.estado}</td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
                 </div>
             )}
         </div>

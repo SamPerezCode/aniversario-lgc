@@ -1,4 +1,3 @@
-// src/App.jsx
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SplashScreen from "./components/ui/SplashScreen";
@@ -6,7 +5,8 @@ import FormularioInscripcion from "./components/inscripciones/FormularioInscripc
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
 import PrivateRoute from "./components/rutas/PrivateRoute";
-import { InscripcionesProvider } from "./context/InscripcionesContext";
+import FormularioInscripcionEfectivo from "./pages/FormularioInscripcionEfectivo";
+
 import './styles/global.css';
 
 function App() {
@@ -24,6 +24,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<FormularioInscripcion />} />
+        <Route path="/inscripcion-efectivo" element={<FormularioInscripcionEfectivo />} />
         <Route path="/login" element={<Login />} />
         <Route
           path="/admin"

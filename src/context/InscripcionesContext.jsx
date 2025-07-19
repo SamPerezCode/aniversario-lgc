@@ -3,6 +3,8 @@ import { listarInscripciones } from '../api/administrador/listarInscripciones';
 import { anularInscripcion } from '../api/administrador/anularInscripcion';
 import { aprobarInscripcion } from '../api/administrador/aprobarInscripcion';
 import { useAuth } from '../context/AuthContext';
+import { realizarInscripcionEfectivo } from '../api/realizarInscripcionEfectivo';
+
 
 const InscripcionesContext = createContext();
 
@@ -11,6 +13,18 @@ export const InscripcionesProvider = ({ children }) => {
     const [inscripcionesPendientes, setInscripcionesPendientes] = useState([]);
     const [loading, setLoading] = useState(true);
     const { user, token } = useAuth();
+
+    const registrarInscripcionEfectivo = async (datos) => {
+        try {
+            const resultado = await realizarInscripcionEfectivo(datos, token);
+            await cargarInscripciones();
+            return resultado;
+        } catch (error) {
+            console.error('Error al registrar inscripción en efectivo:', error);
+            throw error;
+        }
+    };
+
 
     const cargarInscripciones = async () => {
         try {
@@ -67,6 +81,7 @@ export const InscripcionesProvider = ({ children }) => {
                 cargarInscripciones,
                 aprobarInscripcionById,
                 anularInscripcionById,
+                registrarInscripcionEfectivo, // <- ✅ Agregado aquí
                 loading,
             }}
         >
