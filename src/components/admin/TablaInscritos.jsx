@@ -26,7 +26,6 @@ const TablaInscripciones = () => {
         await cargarInscripciones();
     };
 
-    // Filtrar inscripciones según el estado seleccionado
     const inscripcionesFiltradas = inscripciones.filter(
         (item) =>
             (filtro === "Aprobado" && item.estado === "Aprobada") ||
@@ -55,6 +54,9 @@ const TablaInscripciones = () => {
                     <tr>
                         <th>Nombre</th>
                         <th>N° Documento</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Asistencia</th>
                         <th>Comprobante de pago</th>
                         <th>Estado</th>
                         <th>Acciones</th>
@@ -65,6 +67,9 @@ const TablaInscripciones = () => {
                         <tr key={item.id}>
                             <td>{item.nombre}</td>
                             <td>{item.documento}</td>
+                            <td>{item.telefono || '—'}</td>
+                            <td>{item.email || '—'}</td>
+                            <td>{item.asistencia || '—'}</td>
                             <td>
                                 {item.comprobante_pago ? (
                                     <a
