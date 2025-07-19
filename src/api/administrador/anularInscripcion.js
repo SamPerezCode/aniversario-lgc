@@ -1,5 +1,5 @@
 export async function anularInscripcion(id, token) {
-    console.log("ID que se está enviando al backend:", id);
+    // console.log("ID que se está enviando al backend:", id);
 
     try {
         const response = await fetch(`https://dockerapps.pulzo.com/lgc-aniversario/api/inscripciones/anular/${id}`, {
@@ -12,7 +12,7 @@ export async function anularInscripcion(id, token) {
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error('Respuesta del servidor:', errorData);
+            // console.error('Respuesta del servidor:', errorData);
             throw new Error('Error al anular la inscripción');
         }
 

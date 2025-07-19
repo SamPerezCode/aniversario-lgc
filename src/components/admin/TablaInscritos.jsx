@@ -1,115 +1,107 @@
-import React, { useEffect, useState } from 'react';
-import { useInscripciones } from '../../context/InscripcionesContext';
-import './TablaInscritos.css';
+import React, { useState, useEffect } from "react";
+import "./TablaInscritos.css"; // Asegúrate de tener los estilos CSS
 
-const TablaInscripciones = () => {
-    const [filtro, setFiltro] = useState("PreAprobado");
+const TablaInscritos = ({ inscripciones }) => {
+    const [filtro, setFiltro] = useState("");
+    const [paginaActual, setPaginaActual] = useState(1);
+    const itemsPorPagina = 15;
 
-    const {
-        inscripciones,
-        cargarInscripciones,
-        aprobarInscripcionById,
-        anularInscripcionById,
-    } = useInscripciones();
+    // 🔍 Filtrar inscripciones según texto de búsqueda y excluyendo anuladas
+    const datosFiltrados = inscripciones.filter((inscripcion) => {
+        const texto = filtro.toLowerCase();
+        return (
+            inscripcion.estado.toLowerCase() !== "anulada" &&
+            (
+                inscripcion.nombre.toLowerCase().includes(texto) ||
+                inscripcion.documento.toLowerCase().includes(texto) ||
+                inscripcion.estado.toLowerCase().includes(texto)
+            )
+        );
+    });
 
-    useEffect(() => {
-        cargarInscripciones();
-    }, []);
+    const totalPaginas = Math.ceil(datosFiltrados.length / itemsPorPagina);
+    const inicio = (paginaActual - 1) * itemsPorPagina;
+    const inscripcionesPagina = datosFiltrados.slice(inicio, inicio + itemsPorPagina);
 
-    const handleAprobar = async (id) => {
-        await aprobarInscripcionById(id);
-        await cargarInscripciones();
+    const cambiarPagina = (numero) => {
+        if (numero >= 1 && numero <= totalPaginas) {
+            setPaginaActual(numero);
+        }
     };
-
-    const handleAnular = async (id) => {
-        await anularInscripcionById(id);
-        await cargarInscripciones();
-    };
-
-    const inscripcionesFiltradas = inscripciones.filter(
-        (item) =>
-            (filtro === "Aprobado" && item.estado === "Aprobada") ||
-            (filtro === "PreAprobado" && item.estado !== "Aprobada")
-    );
 
     return (
-        <div className="tabla-wrapper">
-            <div className="filtros-inscripciones">
-                <button
-                    className={filtro === "PreAprobado" ? "activo" : ""}
-                    onClick={() => setFiltro("PreAprobado")}
-                >
-                    PreAprobados
-                </button>
-                <button
-                    className={filtro === "Aprobado" ? "activo" : ""}
-                    onClick={() => setFiltro("Aprobado")}
-                >
-                    Aprobados
-                </button>
-            </div>
+        <div className="tabla-inscritos-container">
 
+            {/* 🔍 Buscador */}
+            <input
+                type="text"
+                placeholder="Buscar por nombre, documento o estado..."
+                value={filtro}
+                onChange={(e) => {
+                    setFiltro(e.target.value);
+                    setPaginaActual(1); // Reinicia la paginación al buscar
+                }}
+                className="input-buscador"
+            />
+
+            {/* 📋 Tabla */}
             <table className="tabla-inscritos">
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>N° Documento</th>
-                        <th>Teléfono</th>
-                        <th>Email</th>
-                        <th>Asistencia</th>
-                        <th>Comprobante de pago</th>
+                        <th>Documento</th>
                         <th>Estado</th>
-                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {inscripcionesFiltradas.map((item) => (
-                        <tr key={item.id}>
-                            <td>{item.nombre}</td>
-                            <td>{item.documento}</td>
-                            <td>{item.telefono || '—'}</td>
-                            <td>{item.email || '—'}</td>
-                            <td>{item.asistencia || '—'}</td>
-                            <td>
-                                {item.comprobante_pago ? (
-                                    <a
-                                        href={item.comprobante_pago}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        Ver comprobante
-                                    </a>
-                                ) : (
-                                    'No disponible'
-                                )}
-                            </td>
-                            <td>{item.estado}</td>
-                            <td>
-                                {item.estado !== 'Aprobada' ? (
-                                    <div className="btn-actions">
-                                        <button
-                                            className="btn-aprobar"
-                                            onClick={() => handleAprobar(item.id)}
-                                        >
-                                            Aprobar
-                                        </button>
-                                        <button
-                                            className="btn-anular"
-                                            onClick={() => handleAnular(item.id)}
-                                        >
-                                            Anular
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <span className="texto-aprobado">Ha sido aprobado</span>
-                                )}
-                            </td>
+                    {inscripcionesPagina.length === 0 ? (
+                        <tr>
+                            <td colSpan="3" className="sin-resultados">No hay resultados</td>
                         </tr>
-                    ))}
+                    ) : (
+                        inscripcionesPagina.map((inscripcion) => (
+                            <tr key={inscripcion.id}>
+                                <td>{inscripcion.nombre}</td>
+                                <td>{inscripcion.documento}</td>
+                                <td>{inscripcion.estado}</td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </table>
+
+            {/* 📄 Paginación */}
+            {totalPaginas > 1 && (
+                <div className="paginacion">
+                    <button
+                        onClick={() => cambiarPagina(paginaActual - 1)}
+                        disabled={paginaActual === 1}
+                        className="boton-paginacion"
+                    >
+                        &lt;
+                    </button>
+
+                    {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((num) => (
+                        <button
+                            key={num}
+                            onClick={() => cambiarPagina(num)}
+                            className={`boton-paginacion ${paginaActual === num ? "activo" : ""}`}
+                        >
+                            {num}
+                        </button>
+                    ))}
+
+                    <button
+                        onClick={() => cambiarPagina(paginaActual + 1)}
+                        disabled={paginaActual === totalPaginas}
+                        className="boton-paginacion"
+                    >
+                        &gt;
+                    </button>
+                </div>
+            )}
         </div>
     );
 };
 
-export default TablaInscripciones;
+export default TablaInscritos;

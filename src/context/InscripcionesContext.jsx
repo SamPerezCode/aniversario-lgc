@@ -19,7 +19,7 @@ export const InscripcionesProvider = ({ children }) => {
                 return;
             }
             const data = await listarInscripciones(token);
-            console.log('Respuesta del servidor (inscripciones):', data.data);
+            // console.log('Respuesta del servidor (inscripciones):', data.data);
             setInscripciones(data.data);
         } catch (error) {
             console.error('Error al cargar inscripciones:', error);

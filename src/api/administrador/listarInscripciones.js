@@ -14,7 +14,7 @@ export const listarInscripciones = async (token) => {
         }
 
         const data = await response.json();
-        console.log('Respuesta del servidor (inscripciones):', data);
+        // console.log('Respuesta del servidor (inscripciones):', data);
         return data;
     } catch (error) {
         console.error('Error en listarInscripciones:', error);
