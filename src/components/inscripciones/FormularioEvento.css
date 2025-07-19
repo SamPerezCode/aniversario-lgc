@@ -206,7 +206,7 @@
     transition: color 0.3s ease;
     margin-bottom: 1rem;
     user-select: none;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     /* más grande */
     line-height: 1.6;
 }
@@ -251,4 +251,12 @@
     .telefono-group select {
         width: 100%;
     }
+}
+
+.titulo-formulario {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: var(--color-text);
 }

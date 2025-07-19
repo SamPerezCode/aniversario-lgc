@@ -93,12 +93,16 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
 
     return (
         <>
+            <h2 className="titulo-formulario">
+                Formulario para participación {evento === "virtual" ? "Virtual" : "Presencial"}
+            </h2>
+
             <div
                 className="mensaje-informativo"
                 onClick={() => showInfoModal(evento)}
             >
                 <p>
-                    Por favor llena el formulario después de leer esta información{' '}
+                    Por favor, antes de llenar el formulario leer esta información...{' '}
                     <span className="clic-aqui">haz clic aquí</span>.
                 </p>
             </div>
