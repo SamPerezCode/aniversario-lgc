@@ -34,8 +34,10 @@ const TablaInscritos = ({ inscritos = [], onAprobar, onAnular }) => {
                                     ) : 'No disponible'}
                                 </td>
                                 <td>
-                                    <button className="btn-aprobar" onClick={() => onAprobar(inscrito.id)}>Aprobar</button>
-                                    <button className="btn-anular" onClick={() => onAnular(inscrito.id)}>Anular</button>
+                                    <div className="btn-actions">
+                                        <button className="btn-aprobar" onClick={() => onAprobar(inscrito.id)}>Aprobar</button>
+                                        <button className="btn-anular" onClick={() => onAnular(inscrito.id)}>Anular</button>
+                                    </div>
                                 </td>
                             </tr>
                         ))

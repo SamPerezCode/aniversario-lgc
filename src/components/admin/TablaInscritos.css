@@ -1,57 +1,75 @@
-.tabla-inscritos-container {
-    padding: 1rem;
-    background-color: var(--fondo);
-    color: var(--texto);
-    border-radius: 10px;
-    box-shadow: 0 0 10px #0001;
-    overflow-x: auto;
-}
-
 .tabla-inscritos {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 1rem;
+    font-family: var(--font-cuerpo);
+    background: var(--color-bg);
+    color: var(--color-text);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .tabla-inscritos th,
 .tabla-inscritos td {
-    padding: 0.75rem;
-    border: 1px solid #ccc;
+    padding: 0.75rem 1rem;
     text-align: left;
+    border-bottom: 1px solid var(--color-secondary);
+}
+
+.tabla-inscritos thead {
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+    font-family: var(--font-subtitulos);
+    font-weight: bold;
+}
+
+.tabla-inscritos tbody tr:hover {
+    background-color: rgba(193, 108, 79, 0.1);
+    /* color-primary con opacidad */
+    transition: background 0.3s ease;
+}
+
+.btn-aprobar,
+.btn-anular {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: var(--font-cuerpo);
+    transition: background 0.3s ease;
 }
 
 .btn-aprobar {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    margin-right: 5px;
-    cursor: pointer;
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+}
+
+.btn-aprobar:hover {
+    background-color: #d7843f;
 }
 
 .btn-anular {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    cursor: pointer;
+    background-color: var(--color-secondary);
+    color: var(--color-bg);
+    border: 1px solid var(--color-secondary);
 }
 
-.btn-aprobar:hover,
 .btn-anular:hover {
-    opacity: 0.9;
+    background-color: #70b795;
+    color: var(--color-bg);
 }
 
-@media (prefers-color-scheme: dark) {
-    .tabla-inscritos-container {
-        --fondo: #1e1e1e;
-        --texto: #fff;
-    }
+/* Contenedor de botones */
+.btn-actions {
+    display: flex;
+    gap: 0.5rem;
+    /* Espacio entre botones */
 }
 
-@media (prefers-color-scheme: light) {
-    .tabla-inscritos-container {
-        --fondo: #fff;
-        --texto: #000;
-    }
+/* Opcional: para que no se deformen si el texto cambia */
+.btn-actions button {
+    flex: 1 1 auto;
+    white-space: nowrap;
+    /* Evita que el texto se divida en dos líneas */
 }
