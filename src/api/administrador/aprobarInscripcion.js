@@ -1,9 +1,10 @@
-export async function aprobarInscripcion(inscripcionId) {
+export async function aprobarInscripcion(inscripcionId, token) {
     try {
         const response = await fetch(`https://dockerapps.pulzo.com/lgc-aniversario/api/inscripciones/aprobar/${inscripcionId}`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         });
 

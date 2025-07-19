@@ -78,6 +78,27 @@
 /* Opcional: para que no se deformen si el texto cambia */
 .btn-actions button {
     flex: 1 1 auto;
+    justify-content: center;
     white-space: nowrap;
     /* Evita que el texto se divida en dos líneas */
+}
+
+.filtros-inscripciones {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.filtros-inscripciones button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #eee;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.filtros-inscripciones button.activo {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
 }
