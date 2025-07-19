@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { listarInscripciones } from '../api/administrador/listarInscripciones';
-import { listarInscripcionesPendientesRevision } from '../api/administrador/listarInscripcionesPendientesRevision';
 import { anularInscripcion } from '../api/administrador/anularInscripcion';
 import { aprobarInscripcion } from '../api/administrador/aprobarInscripcion';
 import { useAuth } from '../context/AuthContext';
@@ -20,21 +19,13 @@ export const InscripcionesProvider = ({ children }) => {
                 return;
             }
             const data = await listarInscripciones(token);
+            console.log('Respuesta del servidor (inscripciones):', data.data);
             setInscripciones(data.data);
         } catch (error) {
             console.error('Error al cargar inscripciones:', error);
         }
     };
 
-    const cargarInscripcionesPendientes = async () => {
-        try {
-            if (!token) return;
-            const data = await listarInscripcionesPendientesRevision(token);
-            setInscripcionesPendientes(data.data);
-        } catch (error) {
-            console.error('Error al cargar inscripciones pendientes:', error);
-        }
-    };
 
     const aprobarInscripcionById = async (id) => {
         try {
@@ -62,7 +53,6 @@ export const InscripcionesProvider = ({ children }) => {
             setLoading(true);
             await Promise.all([
                 cargarInscripciones(),
-                cargarInscripcionesPendientes(),
             ]);
             setLoading(false);
         };
@@ -75,7 +65,6 @@ export const InscripcionesProvider = ({ children }) => {
                 inscripciones,
                 inscripcionesPendientes,
                 cargarInscripciones,
-                cargarInscripcionesPendientes,
                 aprobarInscripcionById,
                 anularInscripcionById,
                 loading,

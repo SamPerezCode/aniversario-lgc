@@ -8,8 +8,8 @@ const TablaInscripciones = () => {
     const {
         inscripciones,
         cargarInscripciones,
-        aprobarInscripcionId,
-        anularInscripcionId,
+        aprobarInscripcionById,
+        anularInscripcionById,
     } = useInscripciones();
 
     useEffect(() => {
@@ -17,12 +17,12 @@ const TablaInscripciones = () => {
     }, []);
 
     const handleAprobar = async (id) => {
-        await aprobarInscripcionId(id);
+        await aprobarInscripcionById(id);
         await cargarInscripciones();
     };
 
     const handleAnular = async (id) => {
-        await anularInscripcionId(id);
+        await anularInscripcionById(id);
         await cargarInscripciones();
     };
 
