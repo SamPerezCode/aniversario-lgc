@@ -7,7 +7,6 @@ const TablaInscripciones = () => {
     const [filtro, setFiltro] = useState("PreAprobado");
     const [busqueda, setBusqueda] = useState("");
     const [paginaActual, setPaginaActual] = useState(1);
-    const [mostrarEfectivo, setMostrarEfectivo] = useState(false);
     const registrosPorPagina = 10;
 
     const navigate = useNavigate();
@@ -39,8 +38,9 @@ const TablaInscripciones = () => {
         return inscripciones
             .filter((item) => item.estado !== "Anulada")
             .filter((item) => {
-                if (filtro === "Aprobado") return item.estado === "Aprobada";
+                if (filtro === "Aprobado") return item.estado === "Aprobada" && item.comprobante_pago !== "Pago en efectivo";
                 if (filtro === "PreAprobado") return item.estado !== "Aprobada";
+                if (filtro === "Efectivo") return item.comprobante_pago === "Pago en efectivo";
                 return true;
             })
             .filter((item) =>
@@ -49,10 +49,6 @@ const TablaInscripciones = () => {
                 item.asistencia?.toLowerCase().includes(texto)
             );
     }, [inscripciones, filtro, busqueda]);
-
-    const inscripcionesEfectivo = useMemo(() => {
-        return inscripciones.filter((item) => item.metodo_pago === "Efectivo");
-    }, [inscripciones]);
 
     const totalPaginas = Math.ceil(inscripcionesFiltradas.length / registrosPorPagina);
 
@@ -70,39 +66,29 @@ const TablaInscripciones = () => {
     return (
         <div className="tabla-wrapper">
 
-            {/* Botones superiores */}
-            <div className="acciones-superiores">
-                <button onClick={() => setMostrarEfectivo(!mostrarEfectivo)}>
-                    {mostrarEfectivo ? 'Ocultar pagos en efectivo' : 'Ver pagos en efectivo'}
-                </button>
-                <button onClick={() => navigate('/formulario-pago-efectivo')}>
-                    Agregar pago en efectivo
+            <div className="dropdown-filtros">
+                <select
+                    value={filtro}
+                    onChange={(e) => {
+                        setFiltro(e.target.value);
+                        setPaginaActual(1);
+                    }}
+                    className="select-filtro"
+                >
+                    <option value="PreAprobado">PreAprobados</option>
+                    <option value="Aprobado">Aprobados</option>
+                    <option value="Efectivo">Pago en efectivo</option>
+                </select>
+
+                <button
+                    className="btn-inscribir-efectivo"
+                    onClick={() => navigate("/inscripcion-efectivo")}
+                >
+                    Inscribir con pago en efectivo
                 </button>
             </div>
 
-            {/* Filtros */}
-            <div className="filtros-inscripciones">
-                <button
-                    className={filtro === "PreAprobado" ? "activo" : ""}
-                    onClick={() => {
-                        setFiltro("PreAprobado");
-                        setPaginaActual(1);
-                    }}
-                >
-                    PreAprobados
-                </button>
-                <button
-                    className={filtro === "Aprobado" ? "activo" : ""}
-                    onClick={() => {
-                        setFiltro("Aprobado");
-                        setPaginaActual(1);
-                    }}
-                >
-                    Aprobados
-                </button>
-            </div>
-
-            {/* Buscador */}
+            {/* Buscador separado de la tabla */}
             <div className="buscador-inscripciones">
                 <input
                     type="text"
@@ -112,6 +98,7 @@ const TablaInscripciones = () => {
                         setBusqueda(e.target.value);
                         setPaginaActual(1);
                     }}
+                    className="input-buscador"
                 />
             </div>
 
@@ -133,7 +120,7 @@ const TablaInscripciones = () => {
                     {inscripcionesPaginadas.length === 0 ? (
                         <tr>
                             <td colSpan="8" style={{ textAlign: 'center', padding: '1rem', fontStyle: 'italic' }}>
-                                No hay inscripciones {filtro === 'Aprobado' ? 'Aprobadas' : 'PreAprobadas'} que mostrar.
+                                No hay inscripciones para mostrar en este filtro.
                             </td>
                         </tr>
                     ) : (
@@ -145,12 +132,12 @@ const TablaInscripciones = () => {
                                 <td>{item.email || '—'}</td>
                                 <td>{item.asistencia || '—'}</td>
                                 <td>
-                                    {item.comprobante_pago ? (
+                                    {item.comprobante_pago && item.comprobante_pago !== "Pago en efectivo" ? (
                                         <a href={item.comprobante_pago} target="_blank" rel="noopener noreferrer">
                                             Ver comprobante
                                         </a>
                                     ) : (
-                                        'No disponible'
+                                        item.comprobante_pago || 'No disponible'
                                     )}
                                 </td>
                                 <td>{item.estado}</td>
@@ -192,43 +179,6 @@ const TablaInscripciones = () => {
                     <button onClick={() => cambiarPagina(paginaActual + 1)} disabled={paginaActual === totalPaginas}>
                         &raquo;
                     </button>
-                </div>
-            )}
-
-            {/* Tabla de pagos en efectivo */}
-            {mostrarEfectivo && (
-                <div className="tabla-efectivo">
-                    <h3>Pagos en efectivo</h3>
-                    <table className="tabla-inscritos">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Documento</th>
-                                <th>Email</th>
-                                <th>Teléfono</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {inscripcionesEfectivo.length === 0 ? (
-                                <tr>
-                                    <td colSpan="5" style={{ textAlign: 'center', fontStyle: 'italic' }}>
-                                        No hay pagos en efectivo registrados.
-                                    </td>
-                                </tr>
-                            ) : (
-                                inscripcionesEfectivo.map((item) => (
-                                    <tr key={item.id}>
-                                        <td>{item.nombre}</td>
-                                        <td>{item.documento}</td>
-                                        <td>{item.email || '—'}</td>
-                                        <td>{item.telefono || '—'}</td>
-                                        <td>{item.estado}</td>
-                                    </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
                 </div>
             )}
         </div>
