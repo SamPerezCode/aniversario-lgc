@@ -27,8 +27,8 @@ const HeaderPanel = () => {
 
     return (
         <header className="header-panel">
-            <div className="logo-container">
-                <img src={logo} alt="Logo Iglesia" className="logo" />
+            <div className="logo-container-dashboard">
+                <img src={logo} alt="Logo Iglesia" className="logo-dashboard" />
             </div>
 
             <div className="usuario-container" onClick={toggleDropdown}>

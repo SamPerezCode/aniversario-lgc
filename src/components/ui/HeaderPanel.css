@@ -1,51 +1,110 @@
 .header-panel {
+    position: fixed;
+    /* <-- AÑADE ESTO */
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    z-index: 1000;
+    background-color: var(--color-header);
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: var(--panel-bg, #fff);
-    border-bottom: 1px solid #ccc;
-    position: relative;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
-.logo-container .logo {
+
+
+.logo-container-dashboard {
     width: 48px;
+    /* antes 40px */
     height: 48px;
-    border-radius: 50%;
-    object-fit: cover;
+    /* antes 40px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.logo-dashboard {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
 .usuario-container {
     position: relative;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .avatar-iniciales {
     background-color: #1f2937;
     color: #fff;
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    text-transform: uppercase;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.avatar-iniciales:hover {
+    background-color: #374151;
 }
 
 .dropdown {
     position: absolute;
     right: 0;
-    top: 50px;
+    top: 60px;
     background-color: white;
     border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 0.75rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 180px;
     z-index: 100;
+    animation: fadeIn 0.2s ease-in-out;
 }
 
 .nombre-usuario {
     margin-bottom: 0.5rem;
     font-weight: bold;
+    color: #333;
+}
+
+.dropdown button {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.dropdown button:hover {
+    background-color: #dc2626;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
