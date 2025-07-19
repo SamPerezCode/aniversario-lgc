@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { realizarInscripcion } from "../../api/realizarInscripcion";
+import { subirComprobantePago } from "../../api/ubirComprobantePago";
 import ModalInformacion from "../ui/ModalInformacion";
 import "./FormularioEvento.css";
 import { useModal } from "../../context/ModalContext";
+
 
 const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
     const [formData, setFormData] = useState({
@@ -49,29 +51,36 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
             return;
         }
 
-        const telefonoCompleto = `${formData.codigoPais}${formData.telefono}`;
-
-        const payload = {
-            nombre: formData.nombre,
-            documento: formData.documento,
-            email: formData.email,
-            telefono: telefonoCompleto,
-            ciudad: evento === "virtual" ? formData.ciudad : "",
-            iglesia:
-                evento === "presencial"
-                    ? formData.iglesia === "otra"
-                        ? formData.otraIglesia
-                        : formData.iglesia
-                    : "",
-            asistencia: formData.asistencia,
-            habeas_data: formData.habeas_data,
-            comprobante_pago: formData.comprobante_pago
-                ? URL.createObjectURL(formData.comprobante_pago)
-                : "",
-        };
-
         try {
             setEnviando(true);
+
+            let rutaComprobante = "";
+
+            if (formData.comprobante_pago) {
+                const resultado = await subirComprobantePago(formData.comprobante_pago);
+                rutaComprobante = resultado?.path || "";
+
+            }
+
+            const telefonoCompleto = `${formData.codigoPais}${formData.telefono}`;
+
+            const payload = {
+                nombre: formData.nombre,
+                documento: formData.documento,
+                email: formData.email,
+                telefono: telefonoCompleto,
+                ciudad: evento === "virtual" ? formData.ciudad : "",
+                iglesia:
+                    evento === "presencial"
+                        ? formData.iglesia === "otra"
+                            ? formData.otraIglesia
+                            : formData.iglesia
+                        : "",
+                asistencia: formData.asistencia,
+                habeas_data: formData.habeas_data,
+                comprobante_pago: rutaComprobante, // 👉 Aquí va la ruta real
+            };
+
             const respuesta = await realizarInscripcion(payload);
             onSubmitSuccess();
         } catch (error) {

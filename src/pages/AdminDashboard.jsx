@@ -1,19 +1,14 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import HeaderPanel from '../components/ui/HeaderPanel';
 
 const AdminDashboard = () => {
-    const navigate = useNavigate();
-
-    const handleLogout = () => {
-        localStorage.removeItem('usuarioLogueado');
-        navigate('/login');
-    };
-
     return (
         <div className="admin-dashboard">
-            <h1>Panel de Administración</h1>
-            <p>Bienvenido al panel privado.</p>
-            <button onClick={handleLogout}>Cerrar sesión</button>
+            <HeaderPanel />
+            <div className="contenido">
+                <h1>Panel de Administración</h1>
+                <p>Bienvenido al panel privado.</p>
+            </div>
         </div>
     );
 };
