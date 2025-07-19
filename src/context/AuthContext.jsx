@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const storedUser = localStorage.getItem('usuario');
         const storedToken = localStorage.getItem('token');
-        console.log("Restaurando sesión...", { storedUser, storedToken });
+        // console.log("Restaurando sesión...", { storedUser, storedToken });
 
         if (storedUser && storedUser !== "undefined" && storedToken) {
             try {
@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
                 setUser(parsedUser);
                 setToken(storedToken);
                 setIsAuthenticated(true);
-                console.log("Sesión restaurada:", parsedUser);
+                // console.log("Sesión restaurada:", parsedUser);
             } catch (error) {
                 console.error("Error al parsear usuario del localStorage:", error);
                 localStorage.removeItem('usuario');

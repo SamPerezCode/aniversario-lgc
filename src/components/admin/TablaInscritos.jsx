@@ -4,7 +4,7 @@ import './TablaInscritos.css';
 const TablaInscritos = ({ inscritos = [], onAprobar, onAnular }) => {
     return (
         <div className="tabla-inscritos-container">
-            <h2>Inscritos</h2>
+            {/* <h2>Inscritos</h2> */}
             <table className="tabla-inscritos">
                 <thead>
                     <tr>
