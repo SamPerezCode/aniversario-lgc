@@ -26,7 +26,9 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    margin-top: 8px;
+
+    border: 2px solid var(--color-secondary);
+    border-radius: 50%;
 }
 
 .logo-dashboard {
@@ -65,36 +67,47 @@
     position: absolute;
     right: 0;
     top: 60px;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    min-width: 180px;
+    background-color: var(--color-bg);
+    /* compatible con modo claro/oscuro */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* borde más sutil */
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    /* sombra suave más amplia */
+    min-width: 200px;
     z-index: 100;
     animation: fadeIn 0.2s ease-in-out;
+    backdrop-filter: blur(6px);
+    /* efecto vidrio suave (opcional) */
+    transition: all 0.3s ease;
 }
 
 .nombre-usuario {
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: #333;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-primary-text);
+    /* compatible con modo oscuro */
+    text-align: center;
 }
 
 .dropdown button {
-    background-color: #ef4444;
+    background-color: var(--color-primary);
     color: white;
     border: none;
-    padding: 0.4rem 0.75rem;
-    border-radius: 5px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
     font-size: 0.9rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     width: 100%;
 }
 
 .dropdown button:hover {
-    background-color: #dc2626;
+    background-color: var(--color-accent);
+    transform: scale(1.02);
 }
 
 @keyframes fadeIn {

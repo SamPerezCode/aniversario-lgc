@@ -1,0 +1,57 @@
+.tabla-inscritos-container {
+    padding: 1rem;
+    background-color: var(--fondo);
+    color: var(--texto);
+    border-radius: 10px;
+    box-shadow: 0 0 10px #0001;
+    overflow-x: auto;
+}
+
+.tabla-inscritos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.tabla-inscritos th,
+.tabla-inscritos td {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.btn-aprobar {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.btn-anular {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.btn-aprobar:hover,
+.btn-anular:hover {
+    opacity: 0.9;
+}
+
+@media (prefers-color-scheme: dark) {
+    .tabla-inscritos-container {
+        --fondo: #1e1e1e;
+        --texto: #fff;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .tabla-inscritos-container {
+        --fondo: #fff;
+        --texto: #000;
+    }
+}

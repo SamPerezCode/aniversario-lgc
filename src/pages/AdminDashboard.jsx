@@ -1,8 +1,13 @@
 import React from 'react';
 import HeaderPanel from '../components/ui/HeaderPanel';
 import './AdminDashboard.css'
+import TablaInscritos from '../components/admin/TablaInscritos';
+
+
 
 const AdminDashboard = () => {
+
+
     return (
         <div className="admin-dashboard">
             <HeaderPanel />

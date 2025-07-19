@@ -18,10 +18,9 @@ const HeaderPanel = () => {
         navigate('/login');
     };
 
-    // Obtener iniciales
     const getInitials = (nombre) => {
         if (!nombre) return '';
-        const partes = nombre.split(' ');
+        const partes = nombre.trim().split(' ');
         return partes.map(p => p[0]).slice(0, 2).join('').toUpperCase();
     };
 
@@ -33,11 +32,13 @@ const HeaderPanel = () => {
 
             <div className="usuario-container" onClick={toggleDropdown}>
                 <div className="avatar-iniciales">
-                    {getInitials(user?.nombre || user?.correo)}
+                    {getInitials(user?.name || user?.email || '')}
+
                 </div>
                 {dropdownOpen && (
                     <div className="dropdown">
-                        <p className="nombre-usuario">{user?.nombre || user?.correo}</p>
+                        <p className="nombre-usuario">{user?.name || user?.email}</p>
+
                         <button onClick={handleLogout}>Cerrar sesión</button>
                     </div>
                 )}
