@@ -6,6 +6,7 @@ import FormularioInscripcion from "./components/inscripciones/FormularioInscripc
 import Login from "./pages/Login";
 import AdminDashboard from "./pages/AdminDashboard";
 import PrivateRoute from "./components/rutas/PrivateRoute";
+import { InscripcionesProvider } from "./context/InscripcionesContext";
 import './styles/global.css';
 
 function App() {

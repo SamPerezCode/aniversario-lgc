@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
                 setUser(parsedUser);
                 setToken(storedToken);
                 setIsAuthenticated(true);
-                // console.log("Sesión restaurada:", parsedUser);
+                console.log("Sesión restaurada:", parsedUser);
             } catch (error) {
                 console.error("Error al parsear usuario del localStorage:", error);
                 localStorage.removeItem('usuario');

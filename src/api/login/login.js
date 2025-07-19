@@ -18,7 +18,7 @@ export const loginUsuario = async (credentials) => {
         }
 
         const data = await response.json();
-        // console.log(data)
+        console.log(data.user)
         return data;
     } catch (error) {
         console.error("Error al ingresar:", error);
