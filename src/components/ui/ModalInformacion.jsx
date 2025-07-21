@@ -5,9 +5,10 @@ const ModalInformacion = ({ tipo, onCerrar }) => {
     return (
         <div className="modal-confirmacion-overlay">
             <div className="modal-confirmacion-contenido modal-info-contenido">
+                <button className="btn-cerrar" onClick={onCerrar}>✖</button>
+                <h2>Información importante antes de diligenciar el formulario</h2>
                 <div className="modal-scroll">
-                    <button className="btn-cerrar" onClick={onCerrar}>✖</button>
-                    <h2>Información importante antes de diligenciar el formulario</h2>
+
 
                     {tipo === "virtual" && (
                         <>
