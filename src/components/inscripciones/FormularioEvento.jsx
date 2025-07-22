@@ -5,7 +5,6 @@ import ModalInformacion from "../ui/ModalInformacion";
 import "./FormularioEvento.css";
 import { useModal } from "../../context/ModalContext";
 
-
 const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
     const [formData, setFormData] = useState({
         nombre: "",
@@ -18,12 +17,10 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
         otraIglesia: "",
         comprobante_pago: null,
         habeas_data: false,
-        asistencia: evento === "presencial" ? "Presencial" : "Virtual",
+        asistencia: evento,
     });
 
     const [enviando, setEnviando] = useState(false);
-
-    // ✅ Importamos todo lo que se necesita del contexto
     const { showInfoModal, hideInfoModal, infoModal } = useModal();
 
     const handleChange = (e) => {
@@ -59,7 +56,6 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
             if (formData.comprobante_pago) {
                 const resultado = await subirComprobantePago(formData.comprobante_pago);
                 rutaComprobante = resultado?.path || "";
-
             }
 
             const telefonoCompleto = `${formData.codigoPais}${formData.telefono}`;
@@ -69,16 +65,16 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
                 documento: formData.documento,
                 email: formData.email,
                 telefono: telefonoCompleto,
-                ciudad: evento === "virtual" ? formData.ciudad : "",
+                ciudad: evento === "virtual" || evento === "gratuito" ? formData.ciudad : "",
                 iglesia:
-                    evento === "presencial"
+                    evento === "presencial" || evento === "gratuito"
                         ? formData.iglesia === "otra"
                             ? formData.otraIglesia
                             : formData.iglesia
                         : "",
                 asistencia: formData.asistencia,
                 habeas_data: formData.habeas_data,
-                comprobante_pago: rutaComprobante, // 👉 Aquí va la ruta real
+                comprobante_pago: rutaComprobante,
             };
 
             const respuesta = await realizarInscripcion(payload);
@@ -94,7 +90,7 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
     return (
         <>
             <h2 className="titulo-formulario">
-                Formulario para participación {evento === "virtual" ? "Virtual" : "Presencial"}
+                Formulario para participación {evento === "virtual" ? "Virtual" : evento === "gratuito" ? "Gratuita (Presencial)" : "Presencial"}
             </h2>
 
             <div
@@ -102,19 +98,18 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
                 onClick={() => showInfoModal(evento)}
             >
                 <p>
-                    Por favor, antes de llenar el formulario leer esta información...{' '}
-                    <span className="clic-aqui">haz clic aquí</span>.
+                    {evento === "virtual"
+                        ? "¿Participarás de forma virtual? Por favor lee esta información antes de llenar el formulario."
+                        : evento === "gratuito"
+                            ? "¿Participarás de forma gratuita? Por favor lee esta información antes de llenar el formulario."
+                            : "¿Participarás de forma presencial? Por favor lee esta información antes de llenar el formulario."}
+                    <span className="clic-aqui"> Haz clic aquí</span>.
                 </p>
             </div>
 
-            {/* ✅ Renderizar modal si infoModal está definido */}
             {infoModal && (
-                <ModalInformacion
-                    tipo={infoModal.tipo}
-                    onCerrar={hideInfoModal}
-                />
+                <ModalInformacion tipo={infoModal.tipo} onCerrar={hideInfoModal} />
             )}
-
 
             <form onSubmit={handleSubmit} className="form-evento">
                 <label>
@@ -156,29 +151,9 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
                         <select name="codigoPais" value={formData.codigoPais} onChange={handleChange}>
                             <option value="+57">Colombia +57</option>
                             <option value="+1">EE.UU. +1</option>
-                            <option value="+1-CA">Canadá +1</option>
                             <option value="+52">México +52</option>
-                            <option value="+54">Argentina +54</option>
-                            <option value="+51">Perú +51</option>
-                            <option value="+56">Chile +56</option>
-                            <option value="+593">Ecuador +593</option>
-                            <option value="+58">Venezuela +58</option>
-                            <option value="+591">Bolivia +591</option>
-                            <option value="+502">Guatemala +502</option>
-                            <option value="+503">El Salvador +503</option>
-                            <option value="+504">Honduras +504</option>
-                            <option value="+505">Nicaragua +505</option>
-                            <option value="+506">Costa Rica +506</option>
-                            <option value="+507">Panamá +507</option>
-                            <option value="+598">Uruguay +598</option>
-                            <option value="+595">Paraguay +595</option>
-                            <option value="+592">Guyana +592</option>
-                            <option value="+53">Cuba +53</option>
-                            <option value="+39">Italia +39</option>
-                            <option value="+33">Francia +33</option>
-                            <option value="+49">Alemania +49</option>
                             <option value="+34">España +34</option>
-                            <option value="+44">Reino Unido +44</option>
+                            {/* Agrega más países según necesidad */}
                         </select>
                         <input
                             type="tel"
@@ -190,7 +165,7 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
                     </div>
                 </label>
 
-                {evento === "virtual" && (
+                {(evento === "virtual" || evento === "gratuito") && (
                     <label>
                         Ciudad:
                         <input
@@ -203,7 +178,7 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
                     </label>
                 )}
 
-                {evento === "presencial" && (
+                {(evento === "presencial" || evento === "gratuito") && (
                     <>
                         <label>
                             Iglesia:
@@ -235,25 +210,26 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
                     </>
                 )}
 
-                <label>
-                    Comprobante de pago:
-                    <input
-                        type="file"
-                        accept=".pdf,.jpg,.jpeg,.png"
-                        name="comprobante_pago"
-                        onChange={handleChange}
-                        required
-                    />
-                </label>
+                {evento !== "gratuito" && (
+                    <label>
+                        Comprobante de pago:
+                        <input
+                            type="file"
+                            accept=".pdf,.jpg,.jpeg,.png"
+                            name="comprobante_pago"
+                            onChange={handleChange}
+                            required
+                        />
+                    </label>
+                )}
 
                 <div className="habeas-data">
                     <div className="politicas-scroll">
                         <p>
                             <strong>Autorización de datos personales:</strong><br /><br />
-                            En cumplimiento de la Ley Estatutaria 1581 de 2012, autorizo a LA GRAN COMISIÓN COMUNIDAD CRISTIANA INTEGRAL, a realizar el tratamiento de mis datos personales, actividad que incluye la recolección, almacenamiento, actualización, uso, circulación, transmisión, transferencia y supresión, para los fines contenidos en la POLÍTICAS PARA EL TRATAMIENTO DE DATOS PERSONALES de LA GRAN COMISIÓN COMUNIDAD CRISTIANA INTEGRAL. De igual forma, autorizo el uso de fotografías y videos en las cuales aparezca individualmente o en grupo, para producciones audiovisuales y sus publicaciones por parte de La Gran Comisión CCI.
+                            En cumplimiento de la Ley Estatutaria 1581 de 2012, autorizo a LA GRAN COMISIÓN COMUNIDAD CRISTIANA INTEGRAL a realizar el tratamiento de mis datos personales para los fines contenidos en la política de datos. También autorizo el uso de fotografías y videos donde aparezca.
                         </p>
                     </div>
-
                     <div className="checkbox-container">
                         <input
                             type="checkbox"
@@ -266,9 +242,7 @@ const FormularioEvento = ({ evento, onSubmitSuccess, onVolver }) => {
                             Acepto políticas de tratamiento de datos personales
                         </label>
                     </div>
-
                 </div>
-
 
                 <button type="submit" disabled={enviando}>
                     {enviando ? "Enviando..." : "Realizar inscripción"}

@@ -292,6 +292,35 @@ form button {
     background-color: #c5c5c5;
 }
 
+.mensaje-evento {
+    padding: 1.5rem;
+    background-color: var(--color-fondo-secundario);
+    border-radius: 12px;
+    color: var(--color-texto);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.mensaje-evento ul {
+    padding-left: 1.5rem;
+}
+
+.btn-continuar {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: var(--color-principal);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.container-btn-continuar {
+    display: flex;
+    justify-content: center;
+}
+
 /* Animación */
 @keyframes fadeIn {
     from {

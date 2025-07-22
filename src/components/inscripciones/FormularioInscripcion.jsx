@@ -6,12 +6,12 @@ import "./FormularioInscripcion.css";
 import { useModal } from "../../context/ModalContext";
 
 const InscripcionPublica = () => {
-    const [evento, setEvento] = useState("");
+    const [evento, setEvento] = useState("presencial"); // Por defecto
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
     const [fadeIn, setFadeIn] = useState(false);
     const [showModalExito, setShowModalExito] = useState(false);
 
-    const { showModal, hideModal } = useModal();
+    const { hideModal } = useModal();
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -19,30 +19,13 @@ const InscripcionPublica = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    const handleSeleccionEvento = (tipo) => {
-        setEvento(tipo);
-
-        const mensaje =
-            tipo === "presencial"
-                ? "Si eres de Valledupar o cualquier otra ciudad, pero deseas participar presencialmente del evento el día sábado 23 de agosto, haz clic en continuar."
-                : "Si eres de otra ciudad o país y deseas participar de manera virtual el día sábado 23 de agosto, haz clic en continuar.";
-
-        showModal({
-            mensaje,
-            onConfirmar: () => {
-                hideModal();
-                setMostrarFormulario(true);
-            },
-            onCancelar: () => {
-                setEvento("");
-                hideModal();
-            },
-        });
+    const handleContinuar = () => {
+        setMostrarFormulario(true);
     };
 
     const handleVolver = () => {
         setMostrarFormulario(false);
-        setEvento("");
+        setEvento("presencial");
     };
 
     const handleExito = () => {
@@ -52,7 +35,7 @@ const InscripcionPublica = () => {
     const handleCerrarModalExito = () => {
         setShowModalExito(false);
         setMostrarFormulario(false);
-        setEvento("");
+        setEvento("presencial");
     };
 
     return (
@@ -62,14 +45,44 @@ const InscripcionPublica = () => {
             {fadeIn && (
                 <main className="form-inscripcion fade-in">
                     {!mostrarFormulario && (
-                        <div className="botones-evento">
-                            <h3 className="seleccion-titulo">Selecciona el tipo de evento:</h3>
-                            <button className="btn-evento" onClick={() => handleSeleccionEvento("presencial")}>
-                                Presencial / Valledupar
-                            </button>
-                            <button className="btn-evento" onClick={() => handleSeleccionEvento("virtual")}>
-                                Virtual
-                            </button>
+                        <div className="mensaje-evento">
+                            <p><strong>Este evento se realizará del 22 al 24 de agosto de 2025</strong></p>
+                            <ul>
+                                <li>Viernes 22 y domingo 24 de agosto – la entrada es gratuita</li>
+                                <li>Sábado 23 de agosto – seminario pago:
+                                    <ul>
+                                        <li><strong>Modalidad Presencial:</strong>
+                                            <ul>
+                                                <li>$75.000 COP (preventa hasta el 5 de agosto)</li>
+                                                <li>$90.000 COP (después del 5 de agosto)</li>
+                                                <li>Incluye la inscripción a los tres días</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>Modalidad Virtual:</strong>
+                                            <ul>
+                                                <li>$15 USD (solo sábado)</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>El seminario aplica para mayores de 12 años. Cada asistente debe diligenciar este formulario y realizar su pago para completar la inscripción.</li>
+                                <li>Incluye:
+                                    <ul>
+                                        <li>Ponencias</li>
+                                        <li>Panel con sesión de preguntas y respuestas</li>
+                                        <li>Merienda, lunch, obsequio especial</li>
+                                    </ul>
+                                </li>
+                                <li>¿Preguntas? Escríbenos a <a href="mailto:grancomisionccieventos@gmail.com">grancomisionccieventos@gmail.com</a> o al WhatsApp: <a href="https://wa.me/573166972613" target="_blank">3166972613</a></li>
+                            </ul>
+
+                            <div className="container-btn-continuar">
+                                <button className="btn-continuar" onClick={handleContinuar}>
+                                    Continuar
+                                </button>
+                            </div>
+
+
                         </div>
                     )}
 
@@ -96,7 +109,6 @@ const InscripcionPublica = () => {
                     </div>
                 </div>
             )}
-
         </div>
     );
 };
