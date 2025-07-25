@@ -1,5 +1,8 @@
 // src/api/subirComprobantePago.js
-import { API_BASE_URL } from './apiConfig';
+
+import API_BASE_URL from "./apiConfig";
+
+
 
 const subirComprobantePago = async (archivo) => {
     const formData = new FormData();

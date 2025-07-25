@@ -1,5 +1,7 @@
 // src/data/inscripciones/realizarInscripcion.js
-import { API_BASE_URL } from '../api/apiConfig';
+
+import API_BASE_URL from "./apiConfig";
+
 
 const realizarInscripcion = async (data) => {
     try {
