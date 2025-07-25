@@ -1,64 +1,68 @@
 // src/context/ModalContext.jsx
 import { createContext, useContext, useState } from "react";
 import ModalConfirmacion from "../components/ui/ModalConfirmacion";
-import ModalInformacion from "../components/ui/ModalInformacion"; // ✅
+import ModalInformacion from "../components/ui/ModalInformacion";
 
+// Crear el contexto
 const ModalContext = createContext();
 
+// Hook personalizado
 export const useModal = () => {
     const context = useContext(ModalContext);
-    if (!context) {
-        throw new Error("useModal debe usarse dentro de ModalProvider");
-    }
+    if (!context) throw new Error("useModal debe usarse dentro de un ModalProvider");
     return context;
 };
 
+// Proveedor de contexto
 export function ModalProvider({ children }) {
-    const [modalData, setModalData] = useState(null);
-    const [infoModal, setInfoModal] = useState(null); // ✅
+    // Estado para el modal de confirmación
+    const [modalConfirmacion, setModalConfirmacion] = useState(null);
 
-    // Modal de confirmación
-    const showModal = ({ mensaje, onConfirmar, onCancelar }) => {
-        setModalData({ mensaje, onConfirmar, onCancelar });
+    // Estado para el modal de información
+    const [modalInformacion, setModalInformacion] = useState(null);
+
+    // Mostrar modal de confirmación
+    const mostrarModalConfirmacion = (mensaje) => {
+        if (!mensaje) return;
+        setModalConfirmacion(mensaje);
     };
 
-    const hideModal = () => setModalData(null);
+    // Ocultar modal de confirmación
+    const cerrarModalConfirmacion = () => setModalConfirmacion(null);
 
-    const handleConfirmar = () => {
-        modalData?.onConfirmar?.();
-        hideModal();
+    // Mostrar modal de información (puede recibir más propiedades si se desea)
+    const mostrarModalInformacion = (tipo) => {
+        if (!tipo) return;
+        setModalInformacion({ tipo });
     };
 
-    const handleCancelar = () => {
-        modalData?.onCancelar?.();
-        hideModal();
-    };
-
-    // Modal informativo (tipo = "presencial" o "virtual")
-    const showInfoModal = (tipo) => {
-        setInfoModal({ tipo });
-    };
-
-    const hideInfoModal = () => setInfoModal(null);
+    // Ocultar modal de información
+    const cerrarModalInformacion = () => setModalInformacion(null);
 
     return (
-        <ModalContext.Provider value={{ showModal, hideModal, showInfoModal, hideInfoModal }}>
+        <ModalContext.Provider
+            value={{
+                mostrarModalConfirmacion,
+                cerrarModalConfirmacion,
+                mostrarModalInformacion,
+                cerrarModalInformacion,
+            }}
+        >
             {children}
 
             {/* Modal de confirmación */}
-            {modalData && (
+            {modalConfirmacion && (
                 <ModalConfirmacion
-                    mensaje={modalData.mensaje}
-                    onConfirmar={handleConfirmar}
-                    onCancelar={handleCancelar}
+                    mensaje={modalConfirmacion}
+                    onCerrar={cerrarModalConfirmacion}
                 />
             )}
 
             {/* Modal de información */}
-            {infoModal && (
+            {modalInformacion && (
                 <ModalInformacion
-                    tipo={infoModal.tipo}
-                    onCerrar={hideInfoModal}
+                    tipo={modalInformacion.tipo}
+                    onClose={cerrarModalInformacion}
                 />
             )}
         </ModalContext.Provider>

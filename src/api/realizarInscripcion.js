@@ -1,24 +1,30 @@
-// src/api/realizarInscripcion.js
-export async function realizarInscripcion(datos) {
+// src/data/inscripciones/realizarInscripcion.js
+import { API_BASE_URL } from '../api/apiConfig';
+
+const realizarInscripcion = async (data) => {
     try {
-        // console.log("Enviando datos:", datos); 
-        const respuesta = await fetch("https://dockerapps.pulzo.com/lgc-aniversario/realizar-inscripcion", {
-            method: "POST",
+
+
+
+        const response = await fetch(`${API_BASE_URL}/realizar-inscripcion`, {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json; charset=utf-8"
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(datos)
+            body: JSON.stringify(data),
         });
 
-        if (!respuesta.ok) {
-            const errorData = await respuesta.json();
-            throw new Error(errorData?.mensaje || "Error al enviar la inscripción");
+        if (!response.ok) {
+            const errorText = await response.text(); // 💡 Esto te da más info del backend
+            throw new Error(errorText || 'Error al realizar la inscripción');
         }
 
-        const data = await respuesta.json();
-        return data;
+        return await response.json();
     } catch (error) {
-        console.error("Error en la inscripción:", error);
+        console.error('Error en realizarInscripcion:', error.message);
         throw error;
     }
-}
+};
+
+
+export default realizarInscripcion;

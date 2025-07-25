@@ -2,9 +2,9 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { listarInscripciones } from '../api/administrador/listarInscripciones';
 import { anularInscripcion } from '../api/administrador/anularInscripcion';
 import { aprobarInscripcion } from '../api/administrador/aprobarInscripcion';
-import { useAuth } from '../context/AuthContext';
 import { realizarInscripcionEfectivo } from '../api/realizarInscripcionEfectivo';
-
+import subirComprobantePago from '../api/subirComprobantePago';
+import { useAuth } from '../context/AuthContext';
 
 const InscripcionesContext = createContext();
 
@@ -12,12 +12,119 @@ export const InscripcionesProvider = ({ children }) => {
     const [inscripciones, setInscripciones] = useState([]);
     const [inscripcionesPendientes, setInscripcionesPendientes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [participanteEnEdicion, setParticipanteEnEdicion] = useState(null);
     const { user, token } = useAuth();
+
+    // Ahora es un objeto que contiene los participantes y campos adicionales
+    const [inscripcionTemporal, setInscripcionTemporal] = useState({
+        participantes: [],
+        forma_pago: "",
+        monto_cop: 0,
+        monto_usd: 0,
+        url_soporte_pago: ""
+    });
+
+    const agregarParticipanteTemporal = (participante) => {
+        let dias_asistencia = '';
+        if (participante.modalidad === 'presencial') {
+            dias_asistencia = 'sabado';
+        } else if (participante.modalidad === 'virtual') {
+            dias_asistencia = 'sabado';
+        } else {
+            dias_asistencia = 'viernes_y_domingo';
+        }
+
+        let moneda = '';
+        let valor = 0;
+        if (participante.modalidad === 'presencial') {
+            moneda = 'COP';
+            valor = 75000;
+        } else if (participante.modalidad === 'virtual') {
+            moneda = 'USD';
+            valor = 15;
+        } else if (participante.modalidad === 'gratuito') {
+            moneda = 'COP';
+            valor = 0;
+            participante.modalidad = "presencial";
+        }
+
+
+        const nuevoParticipante = {
+            ...participante,
+            dias_asistencia,
+            moneda,
+            valor
+        };
+
+        setInscripcionTemporal(prev => ({
+            ...prev,
+            participantes: [...prev.participantes, nuevoParticipante],
+            monto_cop: moneda === 'COP' ? prev.monto_cop + valor : prev.monto_cop,
+            monto_usd: moneda === 'USD' ? prev.monto_usd + valor : prev.monto_usd
+        }));
+    };
+
+    const actualizarParticipanteTemporal = (index, datosActualizados) => {
+        const nuevos = [...inscripcionTemporal.participantes];
+        const anterior = nuevos[index];
+        nuevos[index] = datosActualizados;
+
+        // Recalcular totales
+        const monto_cop = nuevos
+            .filter(p => p.moneda === 'COP')
+            .reduce((acc, p) => acc + p.valor, 0);
+        const monto_usd = nuevos
+            .filter(p => p.moneda === 'USD')
+            .reduce((acc, p) => acc + p.valor, 0);
+
+        setInscripcionTemporal(prev => ({
+            ...prev,
+            participantes: nuevos,
+            monto_cop,
+            monto_usd
+        }));
+    };
+
+    const eliminarParticipanteTemporal = (index) => {
+        const nuevos = inscripcionTemporal.participantes.filter((_, i) => i !== index);
+
+        const monto_cop = nuevos
+            .filter(p => p.moneda === 'COP')
+            .reduce((acc, p) => acc + p.valor, 0);
+        const monto_usd = nuevos
+            .filter(p => p.moneda === 'USD')
+            .reduce((acc, p) => acc + p.valor, 0);
+
+        setInscripcionTemporal(prev => ({
+            ...prev,
+            participantes: nuevos,
+            monto_cop,
+            monto_usd
+        }));
+    };
+
+    const actualizarInscripcionTemporal = (campos) => {
+        setInscripcionTemporal(prev => ({
+            ...prev,
+            ...campos
+        }));
+    };
+
+    const limpiarInscripcionTemporal = () => {
+        setInscripcionTemporal({
+            participantes: [],
+            forma_pago: "",
+            monto_cop: 0,
+            monto_usd: 0,
+            url_soporte_pago: ""
+        });
+    };
 
     const registrarInscripcionEfectivo = async (datos) => {
         try {
             const resultado = await realizarInscripcionEfectivo(datos, token);
             await cargarInscripciones();
+            limpiarInscripcionTemporal();
             return resultado;
         } catch (error) {
             console.error('Error al registrar inscripción en efectivo:', error);
@@ -25,21 +132,15 @@ export const InscripcionesProvider = ({ children }) => {
         }
     };
 
-
     const cargarInscripciones = async () => {
         try {
-            if (!token) {
-                console.warn('Token no disponible al momento de cargar inscripciones');
-                return;
-            }
+            if (!token) return;
             const data = await listarInscripciones(token);
-            // console.log('Respuesta del servidor (inscripciones):', data.data);
             setInscripciones(data.data);
         } catch (error) {
             console.error('Error al cargar inscripciones:', error);
         }
     };
-
 
     const aprobarInscripcionById = async (id) => {
         try {
@@ -61,28 +162,39 @@ export const InscripcionesProvider = ({ children }) => {
         }
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (!token) return;
-            setLoading(true);
-            await Promise.all([
-                cargarInscripciones(),
-            ]);
-            setLoading(false);
-        };
-        fetchData();
-    }, [token]); // <- Dependencia correcta
+    const subirYGuardarComprobantePago = async (archivo) => {
+
+        console.log("LLamdo a la función");
+        try {
+            const ruta = await subirComprobantePago(archivo);
+            actualizarInscripcionTemporal({ url_soporte_pago: ruta });
+            console.log("Esta es la ruta: ", ruta)
+            return ruta;
+        } catch (error) {
+            console.error('Error al subir y guardar comprobante:', error);
+            throw error;
+        }
+    };
 
     return (
         <InscripcionesContext.Provider
             value={{
                 inscripciones,
                 inscripcionesPendientes,
+                inscripcionTemporal,
+                subirYGuardarComprobantePago,
+                agregarParticipanteTemporal,
+                actualizarParticipanteTemporal,
+                eliminarParticipanteTemporal,
+                actualizarInscripcionTemporal,
+                limpiarInscripcionTemporal,
+                registrarInscripcionEfectivo,
+                participanteEnEdicion,
+                setParticipanteEnEdicion,
                 cargarInscripciones,
                 aprobarInscripcionById,
                 anularInscripcionById,
-                registrarInscripcionEfectivo, // <- ✅ Agregado aquí
-                loading,
+                loading
             }}
         >
             {children}
@@ -91,3 +203,5 @@ export const InscripcionesProvider = ({ children }) => {
 };
 
 export const useInscripciones = () => useContext(InscripcionesContext);
+
+

@@ -81,11 +81,11 @@ const FormularioInscripcionEfectivo = ({ onSubmitSuccess = () => { }, onVolver =
 
     return (
         <>
-            <div className="pagina-inscripcion">
-                <div className="contenedor-inscripcion">
-                    <h2 className="titulo-formulario">Formulario para pago en efectivo</h2>
+            <div className="form-efectivo__pagina">
+                <div className="form-efectivo__contenedor">
+                    <h2 className="form-efectivo__titulo">Formulario para pago en efectivo</h2>
 
-                    <form onSubmit={handleSubmit} className="form-evento">
+                    <form onSubmit={handleSubmit} className="form-efectivo__formulario">
                         <label>
                             Nombre completo:
                             <input type="text" name="nombre" value={formData.nombre} onChange={handleChange} required />
@@ -103,7 +103,7 @@ const FormularioInscripcionEfectivo = ({ onSubmitSuccess = () => { }, onVolver =
 
                         <label>
                             Teléfono:
-                            <div className="telefono-group">
+                            <div className="form-efectivo__telefono-group">
                                 <select name="codigoPais" value={formData.codigoPais} onChange={handleChange}>
                                     <option value="+57">Colombia +57</option>
                                     <option value="+1">EE.UU. +1</option>
@@ -146,33 +146,37 @@ const FormularioInscripcionEfectivo = ({ onSubmitSuccess = () => { }, onVolver =
                             </select>
                         </label>
 
-                        <div className="habeas-data">
-                            <div className="politicas-scroll">
+                        <div className="form-efectivo__habeas">
+                            <div className="form-efectivo__politicas">
                                 <p>
                                     <strong>Autorización de datos personales:</strong><br /><br />
                                     En cumplimiento de la Ley Estatutaria 1581 de 2012, autorizo a LA GRAN COMISIÓN COMUNIDAD CRISTIANA INTEGRAL, a realizar el tratamiento de mis datos personales, actividad que incluye la recolección, almacenamiento, actualización, uso, circulación, transmisión, transferencia y supresión, para los fines contenidos en la POLÍTICAS PARA EL TRATAMIENTO DE DATOS PERSONALES. De igual forma, autorizo el uso de fotografías y videos en las cuales aparezca individualmente o en grupo, para producciones audiovisuales y sus publicaciones.
                                 </p>
                             </div>
 
-                            <div className="checkbox-container">
-                                <input
-                                    type="checkbox"
-                                    name="habeas_data"
-                                    checked={formData.habeas_data}
-                                    onChange={handleChange}
-                                    id="habeas_data"
-                                />
-                                <label htmlFor="habeas_data">
-                                    Acepto políticas de tratamiento de datos personales
+                            <div className="form-efectivo__acepta">
+                                <label className="checkbox-wrapper">
+                                    <input
+                                        type="checkbox"
+                                        id="habeas_data"
+                                        className="form-efectivo__checkbox"
+                                    />
+                                    <span className="form-efectivo__label-checkbox">
+                                        Acepto políticas de tratamiento de datos personales
+                                    </span>
                                 </label>
                             </div>
+
+
                         </div>
 
-                        <button type="submit" disabled={enviando}>
+                        <button className="form-efectivo__btn form-efectivo__btn--enviar"
+                            type="submit" disabled={enviando}>
                             {enviando ? "Enviando..." : "Guardar inscripción"}
                         </button>
 
-                        <button type="button" className="btn-cancelar" onClick={() => navigate('/admin')}>
+                        <button type="button" className="form-efectivo__btn form-efectivo__btn--cancelar"
+                            onClick={() => navigate('/admin')}>
                             Volver
                         </button>
 

@@ -1,0 +1,73 @@
+.confirmacion-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    background: var(--bg-gradient-light);
+    color: var(--color-text);
+    font-family: var(--font-cuerpo);
+}
+
+.confirmacion-card {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-secondary);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 2rem 2.5rem;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeScaleIn 0.6s ease-out;
+}
+
+.confirmacion-card h2 {
+    font-family: var(--font-titulos);
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.confirmacion-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.btn-principal {
+    background-color: var(--color-primary);
+    color: var(--color-bg);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--font-subtitulos);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-principal:hover {
+    background-color: var(--color-accent);
+    transform: scale(1.03);
+}
+
+/* 🌓 Adaptación modo oscuro */
+[data-theme="dark"] .confirmacion-card {
+    background-color: #243f33;
+    /* más claro que el fondo general */
+    border-color: var(--color-accent);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes fadeScaleIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

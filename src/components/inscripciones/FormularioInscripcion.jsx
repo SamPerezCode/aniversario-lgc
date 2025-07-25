@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import HeaderFormulario from "./HeaderFormulario";
-import FormularioEvento from "./FormularioEvento";
-
+import NewFormulario from "./NewFormulario";
 import "./FormularioInscripcion.css";
 import { useModal } from "../../context/ModalContext";
+
 
 const InscripcionPublica = () => {
     const [evento, setEvento] = useState("presencial"); // Por defecto
@@ -87,12 +87,13 @@ const InscripcionPublica = () => {
                     )}
 
                     {mostrarFormulario && (
-                        <FormularioEvento
+                        <NewFormulario
                             evento={evento}
                             onSubmitSuccess={handleExito}
                             onVolver={handleVolver}
                         />
                     )}
+
                 </main>
             )}
 
