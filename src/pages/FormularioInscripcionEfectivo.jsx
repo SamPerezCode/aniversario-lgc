@@ -159,8 +159,12 @@ const FormularioInscripcionEfectivo = ({ onSubmitSuccess = () => { }, onVolver =
                                     <input
                                         type="checkbox"
                                         id="habeas_data"
+                                        name="habeas_data"
                                         className="form-efectivo__checkbox"
+                                        checked={formData.habeas_data}
+                                        onChange={handleChange}
                                     />
+
                                     <span className="form-efectivo__label-checkbox">
                                         Acepto políticas de tratamiento de datos personales
                                     </span>
