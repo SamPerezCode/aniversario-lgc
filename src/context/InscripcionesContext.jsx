@@ -2,9 +2,9 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import { listarInscripciones } from '../api/administrador/listarInscripciones';
 import { anularInscripcion } from '../api/administrador/anularInscripcion';
 import { aprobarInscripcion } from '../api/administrador/aprobarInscripcion';
-import { realizarInscripcionEfectivo } from '../api/realizarInscripcionEfectivo';
 import subirComprobantePago from '../api/subirComprobantePago';
 import { useAuth } from '../context/AuthContext';
+import realizarInscripcion from '../api/realizarInscripcion';
 
 const InscripcionesContext = createContext();
 
@@ -120,17 +120,41 @@ export const InscripcionesProvider = ({ children }) => {
         });
     };
 
-    const registrarInscripcionEfectivo = async (datos) => {
+    const registrarInscripcionEfectivo = async (participantes = []) => {
         try {
-            const resultado = await realizarInscripcionEfectivo(datos, token);
+            const participantesProcesados = participantes.map((p) => ({
+                nombre: p.nombre,
+                documento: p.documento,
+                email: p.email,
+                telefono: p.telefono,
+                iglesia: p.iglesia,
+                ciudad: p.ciudad || "",
+                habeas_data: p.habeas_data ?? true,
+                modalidad: "presencial",
+                dias_asistencia: "sabado",
+            }));
+
+            const datos = {
+                forma_pago: "efectivo",
+                monto_cop: participantes[0]?.monto_cop || 75000,
+                monto_usd: 0,
+                url_soporte_pago: "",
+                participantes: participantesProcesados,
+            };
+
+            const resultado = await realizarInscripcion(datos, token);
             await cargarInscripciones();
             limpiarInscripcionTemporal();
             return resultado;
         } catch (error) {
-            console.error('Error al registrar inscripción en efectivo:', error);
+            console.error("Error al registrar inscripción en efectivo:", error);
             throw error;
         }
     };
+
+
+
+
 
     const cargarInscripciones = async () => {
         try {
