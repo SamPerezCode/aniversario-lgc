@@ -18,6 +18,9 @@ const ResumenFinalInscripcion = () => {
 
     const [totales, setTotales] = useState({ cop: 0, usd: 0 });
     const [todosGratuitos, setTodosGratuitos] = useState(false);
+    const [hayPresenciales, setHayPresenciales] = useState(false);
+    const [hayVirtuales, setHayVirtuales] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -47,6 +50,14 @@ const ResumenFinalInscripcion = () => {
             monto_cop: totalCOP,
             monto_usd: totalUSD
         });
+
+        const modalidades = participantes.map((p) =>
+            String(p.modalidad).toLowerCase().trim()
+        );
+
+        setHayPresenciales(modalidades.includes("presencial"));
+        setHayVirtuales(modalidades.includes("virtual"));
+
     }, [inscripcionTemporal.participantes]);
 
     const handleRegresar = () => {
@@ -132,11 +143,42 @@ const ResumenFinalInscripcion = () => {
                 </tbody>
             </table>
 
-            <div className="total-a-pagar">
-                <p><strong>Total a pagar:</strong></p>
-                <p>COP ${totales.cop.toLocaleString()}</p>
-                <p>USD ${totales.usd.toLocaleString()}</p>
-            </div>
+            {!todosGratuitos && (
+                <div className="info-pago">
+                    <div className="total-a-pagar">
+                        <h4><strong>Total a pagar:</strong></h4>
+                        <p><strong>COP</strong> ${totales.cop.toLocaleString()}</p>
+                        <p><strong>USD</strong> ${totales.usd.toLocaleString()}</p>
+                    </div>
+
+                    {(hayPresenciales || hayVirtuales) && (
+                        <div className="info-bancaria">
+                            <h4>Datos para transferencia:</h4>
+                            <p><strong>Banco:</strong> Bancolombia</p>
+                            <p><strong>Tipo cuenta:</strong> Ahorros</p>
+                            <p><strong>Número:</strong> 19700005118</p>
+                            <p><strong>NIT:</strong> 900058562-2</p>
+
+                            {hayVirtuales && (
+                                <div className="paypal-dentro">
+                                    <h4 style={{ marginTop: '1.2rem' }}>Enlace para pagos internacionales:</h4>
+                                    <a
+                                        href="https://www.paypal.com/paypalme/jonathanmurciad"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className='enlace-soporte'
+
+                                    >
+                                        https://www.paypal.com/paypalme/jonathanmurciad
+                                    </a>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            )}
+
+
 
             {todosGratuitos ? (
                 <button className="btn-continuar" onClick={handleInscripcionGratuita}>

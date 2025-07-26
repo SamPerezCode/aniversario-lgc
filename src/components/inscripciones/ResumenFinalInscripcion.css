@@ -22,6 +22,7 @@
 .resumen-tabla {
     max-width: 900px !important;
     border-collapse: collapse;
+    border-radius: 10px;
 }
 
 .resumen-tabla th,
@@ -162,4 +163,80 @@
 
 .btn-regresar:hover {
     background-color: #bbb;
+}
+
+.info-pago {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: var(--color-bg);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: flex-start;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+
+.total-a-pagar {
+    flex: 1 1 300px;
+    min-width: 280px;
+    background-color: #f2edd5;
+    border: 1px solid var(--color-secondary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    font-family: var(--font-cuerpo);
+    color: var(--color-text);
+}
+
+.info-bancaria {
+    flex: 1 1 300px;
+    min-width: 280px;
+    background-color: #f2edd5;
+    border: 1px solid var(--color-secondary);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    font-family: var(--font-cuerpo);
+    color: var(--color-text);
+}
+
+
+.info-bancaria h4 {
+    font-family: var(--font-subtitulos);
+    margin-bottom: 0.8rem;
+    color: var(--color-primary);
+}
+
+.total-a-pagar h4 {
+    font-family: var(--font-subtitulos);
+    margin-bottom: 0.8rem;
+    color: var(--color-primary);
+}
+
+.total-a-pagar p {
+    margin: 0.25rem 0;
+    font-size: 0.95rem;
+}
+
+.info-bancaria p {
+    margin: 0.25rem 0;
+    font-size: 0.95rem;
+}
+
+.paypal-dentro {
+    margin-top: 1rem;
+}
+
+.enlace-soporte {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    text-decoration: underline;
+    color: #0077cc;
+    /* Azul llamativo */
+    font-weight: 500;
+}
+
+.enlace-soporte:hover {
+    color: #005999;
 }

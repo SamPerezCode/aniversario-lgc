@@ -136,12 +136,24 @@ const NewFormulario = () => {
             setParticipanteEnEdicion(null);
         } else {
             formularios.forEach((form) => {
-                agregarParticipanteTemporal(form);
+                const formNormalizado = { ...form };
+
+                if (form.iglesia === 'otra' && form.otraIglesia.trim()) {
+                    formNormalizado.iglesia = form.otraIglesia.trim();
+                }
+
+                // Limpieza opcional: elimina el campo auxiliar si ya no lo necesitas
+                delete formNormalizado.otraIglesia;
+
+                agregarParticipanteTemporal(formNormalizado);
             });
+
         }
 
         navigate("/resumen-final");
     };
+
+    console.log(inscripcionTemporal)
 
     return (
         <div className="formulario-wrapper">
