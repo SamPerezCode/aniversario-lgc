@@ -199,10 +199,57 @@ const NewFormulario = () => {
                             Teléfono:
                             <div className="telefono-group">
                                 <select name="codigoPais" value={formData.codigoPais} onChange={(e) => handleChange(index, e)} required>
-                                    <option value="">Seleccione un país</option>
+                                    <option value="+54">Argentina +54</option>
+                                    <option value="+591">Bolivia +591</option>
+                                    <option value="+56">Chile +56</option>
                                     <option value="+57">Colombia +57</option>
+                                    <option value="+506">Costa Rica +506</option>
+                                    <option value="+53">Cuba +53</option>
+                                    <option value="+593">Ecuador +593</option>
+                                    <option value="+503">El Salvador +503</option>
+                                    <option value="+502">Guatemala +502</option>
+                                    <option value="+504">Honduras +504</option>
+                                    <option value="+52">México +52</option>
+                                    <option value="+505">Nicaragua +505</option>
+                                    <option value="+507">Panamá +507</option>
+                                    <option value="+595">Paraguay +595</option>
+                                    <option value="+51">Perú +51</option>
+                                    <option value="+1">Puerto Rico +1</option>
+                                    <option value="+1">República Dominicana +1</option>
+                                    <option value="+598">Uruguay +598</option>
+                                    <option value="+58">Venezuela +58</option>
+                                    <option value="+34">España +34</option>
                                     <option value="+1">Canadá +1</option>
                                     <option value="+1">Estados Unidos +1</option>
+                                    <option value="+49">Alemania +49</option>
+                                    <option value="+43">Austria +43</option>
+                                    <option value="+32">Bélgica +32</option>
+                                    <option value="+385">Croacia +385</option>
+                                    <option value="+45">Dinamarca +45</option>
+                                    <option value="+421">Eslovaquia +421</option>
+                                    <option value="+386">Eslovenia +386</option>
+                                    <option value="+372">Estonia +372</option>
+                                    <option value="+358">Finlandia +358</option>
+                                    <option value="+33">Francia +33</option>
+                                    <option value="+30">Grecia +30</option>
+                                    <option value="+36">Hungría +36</option>
+                                    <option value="+353">Irlanda +353</option>
+                                    <option value="+354">Islandia +354</option>
+                                    <option value="+39">Italia +39</option>
+                                    <option value="+371">Letonia +371</option>
+                                    <option value="+370">Lituania +370</option>
+                                    <option value="+47">Noruega +47</option>
+                                    <option value="+31">Países Bajos +31</option>
+                                    <option value="+48">Polonia +48</option>
+                                    <option value="+351">Portugal +351</option>
+                                    <option value="+44">Reino Unido +44</option>
+                                    <option value="+420">República Checa +420</option>
+                                    <option value="+40">Rumanía +40</option>
+                                    <option value="+46">Suecia +46</option>
+                                    <option value="+41">Suiza +41</option>
+                                    <option value="+380">Ucrania +380</option>
+
+
                                 </select>
                                 <input type="tel" name="telefono" value={formData.telefono} onChange={(e) => handleChange(index, e)} required />
                             </div>
