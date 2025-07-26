@@ -42,9 +42,11 @@ const CardsInscripciones = () => {
         const p = item.participantes?.[0];
         const texto = busqueda.toLowerCase();
 
-        const coincideBusqueda =
-            (p?.nombre?.toLowerCase() || '').includes(texto) ||
-            (p?.documento?.toString().toLowerCase() || '').includes(texto);
+        const coincideBusqueda = item.participantes?.some((p) =>
+            (p.nombre?.toLowerCase().includes(texto) || '')
+            || (p.documento?.toString().toLowerCase().includes(texto) || '')
+        );
+
 
         const coincideModalidad =
             filtroModalidad === "todas" || p?.modalidad === filtroModalidad;
