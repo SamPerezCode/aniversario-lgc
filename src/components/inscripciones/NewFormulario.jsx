@@ -176,7 +176,7 @@ const NewFormulario = () => {
                                 <option value="">Seleccione una opción</option>
                                 <option value="presencial">Sábado Presencial (Incluye los tres días)</option>
                                 <option value="virtual">Sábado Virtual</option>
-                                <option value="gratuito">Solo viernes y domingo</option>
+                                {/* <option value="gratuito">Solo viernes y domingo</option> */}
                             </select>
                         </label>
 
