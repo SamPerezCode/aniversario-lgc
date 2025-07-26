@@ -5,13 +5,14 @@
     flex-direction: column;
     min-height: 100vh;
     border-radius: 10px;
-    background-color: #f4f4f4;
+    /* background-color: white; */
     /* padding: 20px; */
-    background: linear-gradient(135deg, #fff8e1, #f1e1b8);
+    background-color: #eae6d6;
+
 }
 
 .form-inscripcion {
-    background-color: var(--color-bg);
+    background: linear-gradient(135deg, #fff8e1, #f1e1b8);
     border-radius: 16px;
     padding: 20px 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
