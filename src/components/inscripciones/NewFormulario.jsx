@@ -143,26 +143,6 @@ const NewFormulario = () => {
         navigate("/resumen-final");
     };
 
-    // const handleCancelar = () => {
-    //     const confirmar = window.confirm('¿Estás seguro que deseas cancelar la inscripción?');
-    //     if (confirmar) {
-    //         setParticipanteEnEdicion(null);
-
-    //         // Si no está editando, limpiamos participantes para que no se conserven datos temporales
-    //         if (participanteEnEdicion === null) {
-    //             actualizarInscripcionTemporal({
-    //                 participantes: [],
-    //                 forma_pago: '',
-    //                 monto_cop: 0,
-    //                 monto_usd: 0
-    //             });
-    //         }
-
-    //         navigate('/');
-    //     }
-    // };
-
-
     return (
         <div className="formulario-wrapper">
             <form className="form-inscripcion fade-in" onSubmit={(e) => e.preventDefault()}>
