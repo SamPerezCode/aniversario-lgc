@@ -132,7 +132,14 @@ const NewFormulario = () => {
         actualizarInscripcionTemporal({ forma_pago });
 
         if (participanteEnEdicion !== null) {
-            actualizarParticipanteTemporal(participanteEnEdicion, formularios[0]);
+            const form = { ...formularios[0] };
+
+            if (form.iglesia === 'otra' && form.otraIglesia.trim()) {
+                form.iglesia = form.otraIglesia.trim();
+            }
+
+            delete form.otraIglesia;
+            actualizarParticipanteTemporal(participanteEnEdicion, form);
             setParticipanteEnEdicion(null);
         } else {
             formularios.forEach((form) => {
@@ -142,13 +149,11 @@ const NewFormulario = () => {
                     formNormalizado.iglesia = form.otraIglesia.trim();
                 }
 
-                // Limpieza opcional: elimina el campo auxiliar si ya no lo necesitas
                 delete formNormalizado.otraIglesia;
-
                 agregarParticipanteTemporal(formNormalizado);
             });
-
         }
+
 
         navigate("/resumen-final");
     };
