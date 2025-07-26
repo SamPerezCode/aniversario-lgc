@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { useInscripciones } from '../../context/InscripcionesContext';
 import { useNavigate } from 'react-router-dom';
+import { useInscripciones } from '../../context/InscripcionesContext';
+
 import './TablaInscritos.css';
 
 const TablaInscripciones = () => {
@@ -62,6 +63,7 @@ const TablaInscripciones = () => {
             setPaginaActual(nueva);
         }
     };
+    console.log(inscripciones)
 
     return (
         <div className="tabla-wrapper">
@@ -167,15 +169,35 @@ const TablaInscripciones = () => {
                     <button onClick={() => cambiarPagina(paginaActual - 1)} disabled={paginaActual === 1}>
                         &laquo;
                     </button>
-                    {Array.from({ length: totalPaginas }, (_, i) => (
-                        <button
-                            key={i}
-                            onClick={() => cambiarPagina(i + 1)}
-                            className={paginaActual === i + 1 ? 'activo' : ''}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
+                    {[...Array(totalPaginas)].map((_, i) => {
+                        const page = i + 1;
+                        const isFirst = page === 1;
+                        const isLast = page === totalPaginas;
+                        const isNearCurrent = Math.abs(paginaActual - page) <= 2;
+
+                        if (isFirst || isLast || isNearCurrent) {
+                            return (
+                                <button
+                                    key={page}
+                                    onClick={() => cambiarPagina(page)}
+                                    className={paginaActual === page ? 'activo' : ''}
+                                >
+                                    {page}
+                                </button>
+                            );
+                        }
+
+                        // Mostrar "..." solo si no se ha renderizado antes
+                        if (
+                            (page === 2 && paginaActual > 4) ||
+                            (page === totalPaginas - 1 && paginaActual < totalPaginas - 3)
+                        ) {
+                            return <span key={page} className="puntos">...</span>;
+                        }
+
+                        return null;
+                    })}
+
                     <button onClick={() => cambiarPagina(paginaActual + 1)} disabled={paginaActual === totalPaginas}>
                         &raquo;
                     </button>
