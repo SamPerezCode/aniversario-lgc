@@ -64,6 +64,7 @@ const AdjuntarSoportePago = () => {
     const handleRegresar = () => {
         navigate("/resumen-final");
     };
+    // console.log(inscripcionTemporal)
 
     return (
         <div className="adjuntar-soporte-contenedor">

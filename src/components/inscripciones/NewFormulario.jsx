@@ -158,7 +158,7 @@ const NewFormulario = () => {
         navigate("/resumen-final");
     };
 
-    console.log(inscripcionTemporal)
+    // console.log(inscripcionTemporal)
 
     return (
         <div className="formulario-wrapper">
