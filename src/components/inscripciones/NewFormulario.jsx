@@ -186,7 +186,7 @@ const NewFormulario = () => {
                         </label>
 
                         <label>
-                            Documento:
+                            Número de documento  o DNI:
                             <input type="text" name="documento" value={formData.documento} onChange={(e) => handleChange(index, e)} required />
                         </label>
 
