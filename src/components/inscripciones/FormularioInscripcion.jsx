@@ -53,8 +53,8 @@ const InscripcionPublica = () => {
                                     <ul>
                                         <li><strong>Modalidad Presencial:</strong>
                                             <ul>
-                                                <li>$75.000 COP (preventa hasta el 5 de agosto)</li>
-                                                <li>$90.000 COP (después del 5 de agosto)</li>
+                                                {/* <li>$75.000 COP (preventa hasta el 5 de agosto)</li> */}
+                                                <li>$90.000 COP </li>
                                                 <li>Incluye la inscripción a los tres días</li>
                                             </ul>
                                         </li>
