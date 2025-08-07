@@ -16,7 +16,8 @@ const ConfirmacionInscripcion = () => {
                 <p>
                     Tu inscripción al <strong>25 Aniversario</strong> ha sido recibida correctamente.
                     <br />
-                    Pronto nos comunicaremos contigo.
+                    Revise su correo electrónico para consultar la confirmación de la inscripción.
+                    Si no lo encuentra en la bandeja de entrada, verifique la carpeta de spam o correo no deseado.
                 </p>
                 <button onClick={handleFinalizar} className="btn-principal">
                     Finalizar

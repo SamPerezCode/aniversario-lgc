@@ -101,7 +101,8 @@ const InscripcionPublica = () => {
                 <div className="modal-confirmacion-overlay">
                     <div className="modal-confirmacion-contenido">
                         <h2>¡Inscripción enviada correctamente!</h2>
-                        <p>Pronto nos contactaremos contigo.</p>
+                        <p>Revise su correo electrónico para consultar la confirmación de la inscripción.
+                            Si no lo encuentra en la bandeja de entrada, verifique la carpeta de spam o correo no deseado..</p>
                         <div className="modal-botones">
                             <button className="btn-continuar" onClick={handleCerrarModalExito}>
                                 Aceptar
