@@ -37,26 +37,7 @@
     font-weight: bold;
 }
 
-/* 
-form label {
-    display: block;
-    margin-bottom: 20px;
-    color: #444;
-    font-weight: 500;
-    font-family: var(--font-subtitulos);
-}
 
-form input,
-form select {
-    width: 100%;
-    padding: 10px 14px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    margin-top: 6px;
-    font-size: 1rem;
-    box-sizing: border-box;
-    font-family: var(--font-cuerpo);
-} */
 
 form button {
     width: 100%;
@@ -72,9 +53,7 @@ form button {
     font-family: var(--font-subtitulos);
 }
 
-/* form button:hover {
-    background-color: #225ea8;
-} */
+
 
 .error {
     color: #d9534f;
@@ -305,6 +284,10 @@ form button {
 
 .mensaje-evento ul {
     padding-left: 1.5rem;
+}
+
+.mensaje-evento h4 {
+    margin-bottom: 0px;
 }
 
 .btn-continuar {

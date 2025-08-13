@@ -73,6 +73,30 @@ const InscripcionPublica = () => {
                                         <li>Merienda, lunch, obsequio especial</li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <h4>Datos para transferencia:</h4>
+                                    <ul>
+                                        <li><strong>Banco:</strong> Bancolombia</li>
+                                        <li><strong>Tipo cuenta:</strong> Ahorros</li>
+                                        <li><strong>Número:</strong> 19700005118</li>
+                                        <li><strong>NIT:</strong> 900058562-2</li>
+                                    </ul>
+                                    <h4 style={{ marginTop: '1.2rem' }}>Enlace para pagos internacionales:</h4>
+                                    <ul>
+                                        <li>
+                                            <a
+                                                href="https://www.paypal.com/paypalme/jonathanmurciad"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className='enlace-soporte'
+
+                                            >
+                                                https://www.paypal.com/paypalme/jonathanmurciad
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </li>
                                 <li>¿Preguntas? Escríbenos a <a href="mailto:grancomisionccieventos@gmail.com">grancomisionccieventos@gmail.com</a> o al WhatsApp: <a href="https://wa.me/573166972613" target="_blank">3166972613</a></li>
                             </ul>
 
