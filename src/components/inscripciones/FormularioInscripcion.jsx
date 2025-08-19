@@ -47,34 +47,29 @@ const InscripcionPublica = () => {
                     {!mostrarFormulario && (
                         <div className="mensaje-evento">
                             <p><strong>Este evento se realizará del 22 al 24 de agosto de 2025</strong></p>
+
+                            <div className="alerta-cierre">
+                                <p>⚠️ Las inscripciones <strong>gratuitas</strong> y la <strong>presencial paga del sábado 23</strong> han sido cerradas.</p>
+                                {/* <p>✨ Actualmente <strong>solo está disponible la modalidad virtual</strong> para el sábado 23 de agosto.</p> */}
+                            </div>
+
                             <ul>
-                                <li>Viernes 22 y domingo 24 de agosto – la entrada es gratuita</li>
-                                <li>Sábado 23 de agosto – seminario pago:
+                                <li><strong>Modalidad Virtual:</strong>
                                     <ul>
-                                        <li><strong>Modalidad Presencial:</strong>
-                                            <ul>
-                                                {/* <li>$75.000 COP (preventa hasta el 5 de agosto)</li> */}
-                                                <li>$90.000 COP </li>
-                                                <li>Incluye la inscripción a los tres días</li>
-                                            </ul>
-                                        </li>
-                                        <li><strong>Modalidad Virtual:</strong>
-                                            <ul>
-                                                <li>$15 USD (solo sábado)</li>
-                                            </ul>
-                                        </li>
+                                        <li>$15 USD</li>
                                     </ul>
                                 </li>
-                                <li>El seminario aplica para mayores de 12 años. Cada asistente debe diligenciar este formulario y realizar su pago para completar la inscripción.</li>
+
+                                {/* <li>El seminario aplica para mayores de 12 años. Cada asistente debe diligenciar este formulario y realizar su pago para completar la inscripción.</li>
                                 <li>Incluye:
                                     <ul>
                                         <li>Ponencias</li>
                                         <li>Panel con sesión de preguntas y respuestas</li>
-                                        <li>Merienda, lunch, obsequio especial</li>
+
                                     </ul>
-                                </li>
+                                </li> */}
                                 <li>
-                                    <h4>Datos para transferencia:</h4>
+                                    <h4>Datos para pago en pesos colombianos:</h4>
                                     <ul>
                                         <li><strong>Banco:</strong> Bancolombia</li>
                                         <li><strong>Tipo cuenta:</strong> Ahorros</li>
@@ -89,13 +84,11 @@ const InscripcionPublica = () => {
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className='enlace-soporte'
-
                                             >
                                                 https://www.paypal.com/paypalme/jonathanmurciad
                                             </a>
                                         </li>
                                     </ul>
-
                                 </li>
                                 <li>¿Preguntas? Escríbenos a <a href="mailto:grancomisionccieventos@gmail.com">grancomisionccieventos@gmail.com</a> o al WhatsApp: <a href="https://wa.me/573166972613" target="_blank">3166972613</a></li>
                             </ul>
@@ -105,9 +98,8 @@ const InscripcionPublica = () => {
                                     Continuar
                                 </button>
                             </div>
-
-
                         </div>
+
                     )}
 
                     {mostrarFormulario && (

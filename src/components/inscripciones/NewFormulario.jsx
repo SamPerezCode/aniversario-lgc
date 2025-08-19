@@ -174,9 +174,9 @@ const NewFormulario = () => {
                             Modalidad de participación:
                             <select name="modalidad" value={formData.modalidad} onChange={(e) => handleChange(index, e)} required>
                                 <option value="">Seleccione una opción</option>
-                                <option value="presencial">Sábado Presencial (Incluye los tres días)</option>
+                                {/* <option value="presencial">Sábado Presencial (Incluye los tres días)</option> */}
                                 <option value="virtual">Sábado Virtual</option>
-                                <option value="gratuito">Solo viernes y domingo</option>
+                                {/* <option value="gratuito">Solo viernes y domingo</option> */}
                             </select>
                         </label>
 
