@@ -46,28 +46,28 @@ const InscripcionPublica = () => {
                 <main className="form-inscripcion fade-in">
                     {!mostrarFormulario && (
                         <div className="mensaje-evento">
-                            <p><strong>Este evento se realizará del 22 al 24 de agosto de 2025</strong></p>
+                            {/* <p><strong>Este evento se realizará del 22 al 24 de agosto de 2025</strong></p>
 
                             <div className="alerta-cierre">
                                 <p>⚠️ Las inscripciones <strong>gratuitas</strong> y la <strong>presencial paga del sábado 23</strong> han sido cerradas.</p>
-                                {/* <p>✨ Actualmente <strong>solo está disponible la modalidad virtual</strong> para el sábado 23 de agosto.</p> */}
-                            </div>
+                                <p>✨ Actualmente <strong>solo está disponible la modalidad virtual</strong> para el sábado 23 de agosto.</p>
+                            </div> */}
 
-                            <ul>
+                            {/* <ul>
                                 <li><strong>Modalidad Virtual:</strong>
                                     <ul>
                                         <li>$15 USD</li>
                                     </ul>
                                 </li>
 
-                                {/* <li>El seminario aplica para mayores de 12 años. Cada asistente debe diligenciar este formulario y realizar su pago para completar la inscripción.</li>
+                                <li>El seminario aplica para mayores de 12 años. Cada asistente debe diligenciar este formulario y realizar su pago para completar la inscripción.</li>
                                 <li>Incluye:
                                     <ul>
                                         <li>Ponencias</li>
                                         <li>Panel con sesión de preguntas y respuestas</li>
 
                                     </ul>
-                                </li> */}
+                                </li>
                                 <li>
                                     <h4>Datos para pago en pesos colombianos:</h4>
                                     <ul>
@@ -91,13 +91,15 @@ const InscripcionPublica = () => {
                                     </ul>
                                 </li>
                                 <li>¿Preguntas? Escríbenos a <a href="mailto:grancomisionccieventos@gmail.com">grancomisionccieventos@gmail.com</a> o al WhatsApp: <a href="https://wa.me/573166972613" target="_blank">3166972613</a></li>
-                            </ul>
+                            </ul> */}
 
-                            <div className="container-btn-continuar">
+                            {/* <div className="container-btn-continuar">
                                 <button className="btn-continuar" onClick={handleContinuar}>
                                     Continuar
                                 </button>
-                            </div>
+                            </div> */}
+
+                            <h4>Inscripciones cerradas</h4>
                         </div>
 
                     )}

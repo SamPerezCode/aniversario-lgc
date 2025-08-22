@@ -274,13 +274,40 @@ form button {
 }
 
 .mensaje-evento {
-    padding: 1.5rem;
-    background-color: var(--color-fondo-secundario);
-    border-radius: 12px;
-    color: var(--color-texto);
-    margin-bottom: 2rem;
-    line-height: 1.6;
+    background: linear-gradient(135deg, #ff4d4d, #ff9966);
+    color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.3rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    margin: 1.5rem auto;
+    max-width: 500px;
+    letter-spacing: 1px;
+
+    display: flex;
+    /* 🔑 para alinear contenido */
+    align-items: center;
+    /* vertical */
+    justify-content: center;
+    /* centrar todo */
+    gap: 10px;
+    /* espacio entre ícono y texto */
 }
+
+.mensaje-evento::before {
+    content: "⚠️";
+    font-size: 1.5rem;
+}
+
+.mensaje-evento h4 {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #fff;
+    /* para contraste con el degradado */
+}
+
 
 .mensaje-evento ul {
     padding-left: 1.5rem;
